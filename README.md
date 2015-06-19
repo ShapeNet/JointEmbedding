@@ -1,2 +1,3 @@
 # Applications
-ongoing applications using shapenet data
+A Repository for Aggragating Code of ShapeNet-based Applications.
+
