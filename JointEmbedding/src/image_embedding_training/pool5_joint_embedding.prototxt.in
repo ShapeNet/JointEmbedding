@@ -1,0 +1,151 @@
+name: "AlexNet"
+layer {
+  name: "data"
+  type: "Data"
+  top: "pool5"
+  include {
+    phase: TRAIN
+  }
+  data_param {
+    source: "/path/to/syn_images_pool5_lmdb_train"
+    batch_size: 1024 
+    backend: LMDB
+  }
+}
+layer {
+  name: "data"
+  type: "Data"
+  top: "pool5"
+  include {
+    phase: TEST
+  }
+  data_param {
+    source: "/path/to/syn_images_pool5_lmdb_val"
+    batch_size: 512
+    backend: LMDB
+  }
+}
+layer {
+  name: "shape_embedding"
+  type: "Data"
+  top: "shape_embedding"
+  include {
+    phase: TRAIN
+  }
+  data_param {
+    source: "/path/to/shape_embedding_lmdb_train"
+    batch_size: 1024 
+    backend: LMDB
+  }
+}
+layer {
+  name: "shape_embedding"
+  type: "Data"
+  top: "shape_embedding"
+  include {
+    phase: TEST
+  }
+  data_param {
+    source: "/path/to/shape_embedding_lmdb_val"
+    batch_size: 512
+    backend: LMDB
+  }
+}
+layer {
+  name: "fc6"
+  type: "InnerProduct"
+  bottom: "pool5"
+  top: "fc6"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu6"
+  type: "ReLU"
+  bottom: "fc6"
+  top: "fc6"
+}
+layer {
+  name: "drop6"
+  type: "Dropout"
+  bottom: "fc6"
+  top: "fc6"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7"
+  type: "InnerProduct"
+  bottom: "fc6"
+  top: "fc7"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+layer {
+  name: "relu7"
+  type: "ReLU"
+  bottom: "fc7"
+  top: "fc7"
+}
+layer {
+  name: "drop7"
+  type: "Dropout"
+  bottom: "fc7"
+  top: "fc7"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+
+layer {
+  name: "image_embedding"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "image_embedding"
+  param {
+    lr_mult: 10
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 20
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: embedding_space_dim
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "embedding_loss"
+  type: "EuclideanLoss"
+  bottom: "image_embedding"
+  bottom: "shape_embedding"
+  top: "embedding_loss"
+}
