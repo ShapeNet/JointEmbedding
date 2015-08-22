@@ -24,13 +24,13 @@ To be added...
 ### 2. Usage: How to train your own models?
 #### 2.1. Requirements: datasets
 + ShapeNetCore is used for constructing the shape embedding space and generating synthetic images. Visit The <a href="http://shapenet.org/" target="_blank">shapenet.org</a>, and request to download the ShapeNetCore dataset. ShapeNetCore.v1 (also called ShapeNetCore2015Summer) is prefered (there were many broken meshes in ShapeNetCore.v0/ShapeNetCore2015Spring).
-+ <a href="http://groups.csail.mit.edu/vision/SUN/" target="_blank">SUN2012</a> dataset is used for background overlay of the synthetic images. 
++ <a href="http://groups.csail.mit.edu/vision/SUN/" target="_blank">SUN2012</a> dataset is used for background overlay of the synthetic images. Will be downloaded by our script.
 
 #### 2.2. Requirements: software
 + <a href="http://caffe.berkeleyvision.org/" target="\_blank">Caffe</a> is used for deep learning. Install it (including the pycaffe module) by following their instructions. You are required to specify your caffe installation path in `global_varialbes.py`.
-+ <a href="https://www.blender.org/" target="_blank">Blender</a> is used for rendering shapes into images.
++ <a href="https://www.blender.org/" target="_blank">Blender</a> is used for rendering shapes into images. Will be downloaded by our script.
 + Matlab. You are required to specify matlab executable path in `global_varialbes.py`.
-+ <a href="https://github.com/pdollar/toolbox" target="_blank">Piotr's Image & Video Matlab Toolbox</a> is used for HoG feature extraction.
++ <a href="https://github.com/pdollar/toolbox" target="_blank">Piotr's Image & Video Matlab Toolbox</a> is used for HoG feature extraction. Will be downloaded by our script.
 
 #### 2.3. Requirements: hardware
 + Highend GPU(s) are required for the deep learning part.
