@@ -19,7 +19,38 @@ If you find JointEmbedding useful in your research, please consider citing:
     
 ## Contents
 ### 1. Usage: How to test with trained models?
+To be added...
 ### 2. Usage: How to train your own models?
 #### 2.1. Requirements: datasets
++ ShapeNetCore is used for constructing the shape embedding space and generating synthetic images. Visit The <a href="http://shapenet.org/" target="_blank">shapenet.org</a>, and request to download the ShapeNetCore dataset. ShapeNetCore.v1 (also called ShapeNetCore2015Summer) is prefered (there were many broken meshes in ShapeNetCore.v0/ShapeNetCore2015Spring).
++ <a href="http://groups.csail.mit.edu/vision/SUN/" target="_blank">SUN2012</a> dataset is used for background overlay of the synthetic images. The downloading, unziping, etc are automatically handled by the code. 
+
 #### 2.2. Requirements: software
-#### 2.3. Installation
++ <a href="http://caffe.berkeleyvision.org/" target="_blank">Caffe</a> is used for deep learning traing. Follow Caffe installation instructions to get it installed, including the pycaffe module. You are required to specify your caffe installation path in global_varialbes.py.
++ <a href="https://www.blender.org/" target="_blank">Blender</a> is used for rendering shapes into images. The downloading, unziping (no installation is required by Blender), etc, are automatically handled by the code.
++ Matlab is used for image manipulation, feature extraction, etc. You are required to specify matlab executable path in global_varialbes.py.
++ <a href="https://github.com/pdollar/toolbox" target="_blank">Piotr's Image & Video Matlab Toolbox</a> is used for HoG feature extraction. The downloading is automatically handled by the code.
+
+#### 2.3. Requirements: hardware
++ Highend GPU(s) are required for the deep learning part.
++ You may also need highend CPU(s), as many parts in the training pipeline are computationally expensive (millions of images will be rendered, processed...).
+
+#### 2.4. Installation
+The code is written by python, matlab and shell. There is no need for any installation of the code itself. Just:
+
+    git clone https://github.com/ShapeNet/Applications.git ShapeNetAppliations;
+    cd ShapeNetApplications/JointEmbedding/src;
+    cp global_variables.py.example global_variables.py
+    
+#### 2.5. Run the pipeline
+1. Edit global_variables.py, especially the ones marked by **[take care!]**
+2. Execute `run_preparation.sh`. It will download some 3rd party software, and prepare shell scripts for next steps.
+3. Execute `run_shape_embedding_training.sh` to generate shape embedding space.
+4. Execute `run_image_embedding_training.sh` to generate synthetic images.
+5. Execute `run_joint_embedding_training.sh` to prepare and start the actual process.
+
+##### Notes
+1. You can run step 3 and 4 in parallel, well, in different machines, since both of them are multi-threaded, and you won't gain much speedup if you run them in parallel in the same machine.
+2. Step 3, 4, and 5 are also very I/O intensive, try large SSD if you have.
+3. The `run_\*.sh` scripts further divided the tasks into smaller tasks. Feed `-f first_step -l last_step` parameters to the `run_\*.sh` scripts to run part of them.
+3. Read the scripts, starting from the `run_\*.sh`, to get more understanding of the code and build upon it!
