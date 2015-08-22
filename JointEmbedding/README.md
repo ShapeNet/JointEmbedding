@@ -44,7 +44,7 @@ The code is written by python, matlab and shell. There is no need for any instal
     cp global_variables.py.example global_variables.py
     
 #### 2.5. Run the pipeline
-1. Edit global_variables.py, especially the ones marked by **[take care!]**
+1. Edit `global_variables.py`, especially the ones marked by **[take care!]**
 2. Execute `run_preparation.sh`. It will download some 3rd party software, and prepare shell scripts for next steps.
 3. Execute `run_shape_embedding_training.sh` to generate shape embedding space.
 4. Execute `run_image_embedding_training.sh` to generate synthetic images.
