@@ -18,7 +18,7 @@ fprintf('done (%f seconds)!\n', etime(t_end, t_begin));
 
 %% Save embedding space
 t_begin = clock;
-fprintf('Save shape embedding space to \"%s\"...', g_shape_embedding_space_file);
+fprintf('Save shape embedding space to \"%s\"...', g_shape_embedding_space_file_mat);
 save(g_shape_embedding_space_file_mat, 'shape_embedding_space', '-v7.3');
 dlmwrite(g_shape_embedding_space_file_txt, shape_embedding_space, 'delimiter', ' ');
 t_end = clock;
