@@ -16,14 +16,14 @@ import matplotlib
 matplotlib.use('Agg')
 
 parser = argparse.ArgumentParser(description="Extract neural network features for IMAGE input.")
+parser.add_argument('--caffe_path', help='Path to caffe installation', required=False)
 parser.add_argument('--img_filelist', help='Image file list.', required=True)
 parser.add_argument('--img_root', help='Image file root dir.', default='/')
-parser.add_argument('--deploy_file', help='Model deploy file.', required=True)
-parser.add_argument('--params_file', help='Model param file', required=False)
+parser.add_argument('--prototxt', help='Model deploy file.', required=True)
+parser.add_argument('--caffemodel', help='Model param file', required=False)
 parser.add_argument('--feat_name', help='Feature name. e.g. fc7', required=True)
 parser.add_argument('--lmdb', help='LMDB for saving the features.', required=True)
 parser.add_argument('--gpu_index', help='GPU index (default=0).', type=int, default=0)
-parser.add_argument('--caffe_path', help='Path to caffe installation', required=False)
 parser.add_argument('--pool_size', help='Pool size', type=int, default=8)
 args = parser.parse_args()
 
@@ -35,7 +35,7 @@ gpu_index = int(args.gpu_index)
 # INIT NETWORK
 caffe.set_mode_gpu()
 caffe.set_device(gpu_index)
-net = caffe.Classifier(args.deploy_file,args.params_file,
+net = caffe.Classifier(args.prototxt,args.caffemodel,
     mean=np.array([104, 117, 123]),
     raw_scale=255,
     channel_swap=(2, 1, 0))
