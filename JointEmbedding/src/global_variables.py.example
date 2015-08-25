@@ -21,12 +21,14 @@ g_blender_executable_path = os.path.abspath(os.path.join(g_3rd_party_folder, 'bl
 g_piotr_toolbox_git = 'https://github.com/pdollar/toolbox'
 g_piotr_toolbox_path = os.path.abspath(os.path.join(g_3rd_party_folder, 'piotr_toolbox'))
 # Follow Caffe homepage for the installation instructions of Caffe.
-g_caffe_executable_path = os.path.abspath('/ShapeNetDL/software/caffe_default/install') # [take care!!!]
-g_matlab_executable_path = os.path.abspath('/orions3-zfs/software/matlab2014b/bin/matlab') # [take care!!!]
+g_caffe_install_path = os.path.abspath('/opt/caffe') # [take care!!!]
+g_matlab_executable_path = os.path.abspath('/usr/local/bin/matlab') # [take care!!!]
 g_shapenet_root_folder = os.path.join(g_data_folder, 'ShapeNetCore2015Summer') # [take care!!!], where you put ShapeNet data
 g_sun2012_data_url = 'http://groups.csail.mit.edu/vision/SUN/releases/SUN2012pascalformat.tar.gz'
+
+# We fine tune our model from BLVC_AlexNet
 g_fine_tune_caffemodel_url = 'http://dl.caffe.berkeleyvision.org/bvlc_alexnet.caffemodel'
-g_fine_tune_caffemodel_file = os.path.join(g_data_folder, 'image_embedding/bvlc_alexnet.caffemodel')
+g_fine_tune_caffemodel = os.path.join(g_data_folder, 'image_embedding/bvlc_alexnet.caffemodel')
 
 
 ##############################################################################
@@ -71,7 +73,7 @@ g_lfd_light_num = 4
 g_lfd_light_dist = 14.14
 g_lfd_camera_dist = 3
 g_lfd_view_num = 20 #[take care!] g_lfd_view_num = elevation_num*azimuth_num
-g_lfd_rendering_thread_num = 20 #[take care!], try to match with #CPU core
+g_lfd_rendering_thread_num = 10 #[take care!], try to match with #CPU core
 #-----------------------------------------------------------------------------
 # The elevations and azimuths are category specific
 # We simply manually pick k (k=20) LFD views for each category, A potentially
@@ -116,7 +118,7 @@ g_shape_embedding_space_file_txt = os.path.join(g_data_folder, 'shape_embedding/
 # Image embedding
 ##############################################################################
 # Rendering
-g_syn_rendering_thread_num = 20 #[take care!], try to match with #CPU core
+g_syn_rendering_thread_num = 10 #[take care!], try to match with #CPU core
 g_images_per_synset = 850000
 g_view_distribution_folder = os.path.join(g_data_folder, 'image_embedding/view_distribution')
 g_view_distribution_files = dict(zip(all_shapenet_synset_set, [os.path.join(g_view_distribution_folder, synset+'.txt') for synset in all_shapenet_synset_set]))
@@ -150,8 +152,10 @@ g_syn_images_train_val_split = os.path.join(g_data_folder, 'image_embedding/syn_
 g_pool5_lmdb = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle)
 g_pool5_lmdb_train = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle+'_train')
 g_pool5_lmdb_val = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle+'_val')
-g_extract_feat_deploy_file = os.path.join(SRC_ROOT, 'image_embedding_training/pool5_feature_extraction.prototxt')
-g_extract_feat_thread_num = 20 #[take care!], try to match with #CPU core
+# The g_extract_feat_prototxt is based on g_fine_tune_caffemodel
+# If you want to try a different caffemodel, modify g_extract_feat_prototxt accordingly
+g_extract_feat_prototxt = os.path.join(SRC_ROOT, 'image_embedding_training/pool5_feature_extraction.prototxt') #[take care!]
+g_extract_feat_thread_num = 10 #[take care!], try to match with #CPU core
 g_extract_feat_gpu_index = 0 #[take care!], which GPU to use for pool5 extraction
 
 # Shape embedding LMDBs
@@ -159,4 +163,15 @@ g_shape_embedding_lmdb_train = os.path.join(g_data_folder, 'shape_embedding/shap
 g_shape_embedding_lmdb_val = os.path.join(g_data_folder, 'shape_embedding/shape_embedding_lmdb'+g_shapenet_synset_set_handle+'_val')
 
 # Train caffemodel
-g_image_embedding_caffemodel = os.path.join(g_data_folder, 'image_embedding/image_embedding_caffemodel'+g_shapenet_synset_set_handle)
+g_image_embedding_training_folder = os.path.join(g_data_folder, 'image_embedding/image_embedding_training'+g_shapenet_synset_set_handle)
+# The g_extract_feat_prototxt is based on g_fine_tune_caffemodel
+# If you want to try a different caffemodel, modify g_image_embedding_train_val_prototxt accordingly
+g_image_embedding_train_val_prototxt = os.path.join(g_image_embedding_training_folder, 'train_val.prototxt') # [take care!] 
+g_image_embedding_solver_prototxt = os.path.join(g_image_embedding_training_folder, 'solver.prototxt')
+g_image_embedding_command_sh = os.path.join(g_image_embedding_training_folder, 'run_training.sh')
+
+# Testing
+g_image_embedding_testing_folder = os.path.join(g_data_folder, 'image_embedding/image_embedding_testing'+g_shapenet_synset_set_handle)
+# The g_extract_feat_prototxt is based on g_fine_tune_caffemodel
+# If you want to try a different caffemodel, modify g_image_embedding_testing_prototxt accordingly
+g_image_embedding_testing_prototxt = os.path.join(g_image_embedding_testing_folder, 'image_embedding.prototxt') # [take care!]
