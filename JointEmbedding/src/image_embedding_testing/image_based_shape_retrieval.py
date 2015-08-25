@@ -84,7 +84,7 @@ for i in range(args.top_k):
 """
      <div class="retrieval">
 	    <span class="helper"></span>
-	    <img src="https://shapenet.cs.stanford.edu/shapenet_brain/media/shape_lfd_images/%s/%s/%s_%s_a054_e020_t000_d003.png" title="%s/%s" max-height="128" max-width="128">
+	    <img class="item" src="https://shapenet.cs.stanford.edu/shapenet_brain/media/shape_lfd_images/%s/%s/%s_%s_a054_e020_t000_d003.png" title="%s/%s">
 	    <div class="property">
 		<p>id: %s</p>
 	    </div>

@@ -19,6 +19,7 @@ args = parser.parse_args()
 
 print 'Loading shape embedding space from %s...'%(g_shape_embedding_space_file_txt)
 shape_embedding_space = [np.array([float(value) for value in line.strip().split(' ')]) for line in open(g_shape_embedding_space_file_txt, 'r')]
+assert(len(shape_embedding_space) == shape_embedding_space[0].size)
 query_embedding = shape_embedding_space[args.query_idx]
 
 print 'Computing distances and ranking...'
@@ -26,8 +27,12 @@ sorted_distances = sorted([(sum((query_embedding-shape_embedding)**2), idx) for 
 
 print 'Loading shape list from %s'%(g_shape_list_file)
 shape_list = [line.strip().split(' ') for line in open(g_shape_list_file, 'r')]
+assert(len(shape_distance_matrix) == len(shape_list))
 
-visualization_filename = os.path.join(BASE_DIR, 'visualize_embedding_space_KNN_%s.html'%(args.query_idx))
+visualization_folder = os.path.join(BASE_DIR, 'visualization')
+if not os.path.exists(visualization_folder):
+    os.makedirs(visualization_folder)
+visualization_filename = os.path.join(visualization_folder, 'visualize_embedding_space_KNN_%s.html'%(args.query_idx))
 visualization_template = os.path.join(BASE_DIR, 'visualize_embedding_space_KNN.html')
 print 'Saving visualization to %s...'%(visualization_filename)
 shutil.copy(visualization_template, visualization_filename)
@@ -45,7 +50,7 @@ for i in range(args.top_k):
 """
      <div class="retrieval">
 	    <span class="helper"></span>
-	    <img src="https://shapenet.cs.stanford.edu/shapenet_brain/media/shape_lfd_images/%s/%s/%s_%s_a054_e020_t000_d003.png" title="%s/%s" max-height="128" max-width="128">
+	    <img class="item" src="https://shapenet.cs.stanford.edu/shapenet_brain/media/shape_lfd_images/%s/%s/%s_%s_a054_e020_t000_d003.png" title="%s/%s">
 	    <div class="property">
 		<p>id: %s</p>
 	    </div>
