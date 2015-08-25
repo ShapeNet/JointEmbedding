@@ -39,15 +39,14 @@ t_begin = clock;
 view_hog_features = cell(g_lfd_view_num, 1);
 for i = 1:g_lfd_view_num
     fprintf('Extracting HoG feature from LFD images of view %d of %d...\n', i, g_lfd_view_num);
-    fprintf([repmat('.', 1, report_num) '\n']);
+    fprintf([repmat('.', 1, report_num) '\n\n']);
     view_hog_feature = zeros(shape_count, hog_dimension);
     parfor j = 1:shape_count
         view_hog_feature(j, :) = extract_pyramid_hog(view_image_lists{i, j}, g_lfd_hog_image_size);
         if mod(j, report_step) == 0
-            fprintf('\b|');
+            fprintf('\b|\n');
         end
     end    
-    fprintf('\n');
     view_hog_features{i} = view_hog_feature;
 end
 delete(poolobj);
