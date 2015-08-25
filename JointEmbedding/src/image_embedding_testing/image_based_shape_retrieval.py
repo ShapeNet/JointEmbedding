@@ -7,7 +7,6 @@ import shutil
 import argparse
 import fileinput
 import numpy as np
-from multiprocessing import Pool
 
 #https://github.com/BVLC/caffe/issues/861#issuecomment-70124809
 import matplotlib 
@@ -85,12 +84,12 @@ for i in range(args.top_k):
 """
      <div class="retrieval">
 	    <span class="helper"></span>
-	    <img src="https://shapenet.cs.stanford.edu/shapenet_brain/media/shape_lfd_images/%s/%s/03001627_%s_a054_e020_t000_d003.png" title="%s/%s" height="128">
+	    <img src="https://shapenet.cs.stanford.edu/shapenet_brain/media/shape_lfd_images/%s/%s/%s_%s_a054_e020_t000_d003.png" title="%s/%s" height="128" width="128">
 	    <div class="property">
 		<p>id: %s</p>
 	    </div>
 	</div>
- """%(synset, md5_id, md5_id, synset, md5_id, md5_id)
+ """%(synset, md5_id, synset, md5_id, synset, md5_id, md5_id)
  
 
 for line in fileinput.input(visualization_filename, inplace=True):
