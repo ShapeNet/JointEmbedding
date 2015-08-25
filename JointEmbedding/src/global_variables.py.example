@@ -102,7 +102,7 @@ g_lfd_images_folder = os.path.join(g_data_folder, 'shape_embedding/lfd_images')
 g_lfd_images_cropped_folder = os.path.join(g_data_folder, 'shape_embedding/lfd_images_cropped')
 
 # HoG feature extraction
-g_lfd_hog_image_size = 128
+g_lfd_hog_image_size = 120
 g_lfd_hog_features_file = os.path.join(g_data_folder, 'shape_embedding/lfd_hog_features'+g_shapenet_synset_set_handle+'.mat')
 
 # Pairwise distance
