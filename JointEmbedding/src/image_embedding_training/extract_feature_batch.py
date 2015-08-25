@@ -31,10 +31,9 @@ if args.caffe_path:
     sys.path.append(os.path.join(args.caffe_path, 'python'))
 import caffe
 
-gpu_index = int(args.gpu_index)
 # INIT NETWORK
 caffe.set_mode_gpu()
-caffe.set_device(gpu_index)
+caffe.set_device(args.gpu_index)
 net = caffe.Classifier(args.prototxt,args.caffemodel,
     mean=np.array([104, 117, 123]),
     raw_scale=255,

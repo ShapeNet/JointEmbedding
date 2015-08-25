@@ -4,7 +4,7 @@ sun2012_data
 syn_images
 syn_images_cropped
 syn_images_bkg_overlaid
-image_embedding_caffemodel_*
+image_embedding_*
 syn_images_pool5_lmdb_*
 syn_images_filelist_*.txt
 syn_images_imageid2shapeid_*.txt
