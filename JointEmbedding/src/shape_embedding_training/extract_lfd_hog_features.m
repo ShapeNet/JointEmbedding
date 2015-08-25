@@ -32,21 +32,22 @@ fprintf('Each shape will be converted into HoG feature of %d dimensions!\n', hog
 
 %% compute the HoG feature for the LFD images
 fprintf('Start LFD HoG feature extraction at time...it takes for a while!!\n', datestr(now, 'HH:MM:SS'));
-poolobj=parpool;
+poolobj=parpool('local', g_lfd_cropping_thread_num);
 report_num = 80; 
 report_step = floor((shape_count+report_num-1)/report_num);
 t_begin = clock;
 view_hog_features = cell(g_lfd_view_num, 1);
 for i = 1:g_lfd_view_num
     fprintf('Extracting HoG feature from LFD images of view %d of %d...\n', i, g_lfd_view_num);
-    fprintf(['\n' repmat('.', 1, report_num) '\n\n']);
+    fprintf([repmat('.', 1, report_num) '\n']);
     view_hog_feature = zeros(shape_count, hog_dimension);
     parfor j = 1:shape_count
         view_hog_feature(j, :) = extract_pyramid_hog(view_image_lists{i, j}, g_lfd_hog_image_size);
         if mod(j, report_step) == 0
-            fprintf('\b|\n');
+            fprintf('\b|');
         end
     end    
+    fprintf('\n');
     view_hog_features{i} = view_hog_feature;
 end
 delete(poolobj);

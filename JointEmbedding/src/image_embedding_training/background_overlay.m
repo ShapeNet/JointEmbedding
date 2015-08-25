@@ -10,9 +10,8 @@ fprintf('done (%d images, %f seconds)!\n', image_num, etime(t_end, t_begin));
 sunImageList = importdata(bkgFilelist);
 
 fprintf('Start overlaying images at time %s, it takes for a while...\n', datestr(now, 'HH:MM:SS');
-poolobj=parpool;
 report_num = 80;
-fprintf(['\n' repmat('.',1,report_num) '\n\n']);
+fprintf([repmat('.',1,report_num) '\n']);
 report_step = floor((image_num+report_num-1)/report_num);
 t_begin = clock;
 %for i = 1:length(src_image_list)
@@ -66,9 +65,9 @@ parfor i = 1:image_num
     end
     
     if mod(i, report_step) == 0
-        fprintf('\b|\n');
+        fprintf('\b|');
     end
 end
-delete(poolobj);
+fprintf('\n');
 t_end = clock;
 fprintf('%f seconds spent on background overlay!\n', etime(t_end, t_begin));
