@@ -3,6 +3,10 @@
 shape_embedding_file='/orions3-zfs/projects/haosu/Image2Scene/data/chair6777_meta/modelFeaturesSammon100.txt'
 model_deploy_file='/orions3-zfs/projects/haosu/Image2Scene/data/model_chair_view_prediction_7k_siamese/fine_tune_sammon100/deploy.prototxt'
 model_param_file='/orions3-zfs/projects/haosu/Image2Scene/data/model_chair_view_prediction_7k_siamese/fine_tune_sammon100/snapshots_iter_10000.caffemodel'
+
+BASEDIR="$(dirname $(readlink -f $0))"
+mkdir $BASEDIR/results
+
 # figure 10 our embedding
 python ./shape_retrieval_by_images_evaluation.py -m /orions3-zfs/projects/rqi/Dataset/ExactMatchChairsDataset/exact_match_chairs_img_modelIds_0to6776.txt -i /orions3-zfs/projects/rqi/Dataset/ExactMatchChairsDataset/exact_match_chairs_pool5_feat.npy -s $shape_embedding_file -d $model_deploy_file -p $model_param_file -n1 250 -n2 250 --result_id sammon100_clutter --clutter_only
 exit
