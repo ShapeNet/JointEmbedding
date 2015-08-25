@@ -3,8 +3,8 @@ global_variables;
 
 %% Load shape distance matrix
 t_begin = clock;
-fprintf('Loading shape distance matrix from \"%s\"...', g_shape_distance_matrix_file);
-load(g_shape_distance_matrix_file);
+fprintf('Loading shape distance matrix from \"%s\"...', g_shape_distance_matrix_file_mat);
+load(g_shape_distance_matrix_file_mat);
 t_end = clock;
 fprintf('done (%f seconds)!\n', etime(t_end, t_begin));
 

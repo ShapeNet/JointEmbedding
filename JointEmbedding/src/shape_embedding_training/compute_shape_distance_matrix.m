@@ -19,8 +19,9 @@ fprintf('done (%f seconds)!\n', etime(t_end, t_begin));
 
 %% Save shape distance matrix
 t_begin = clock;
-fprintf('Save shape distance matrix to \"%s\"...', g_shape_distance_matrix_file);
-save(g_shape_distance_matrix_file, 'shape_distance_matrix', '-v7.3');
+fprintf('Save shape distance matrix to \"%s\"...', g_shape_distance_matrix_file_mat);
+save(g_shape_distance_matrix_file_mat, 'shape_distance_matrix', '-v7.3');
+dlmwrite(g_shape_distance_matrix_file_txt, shape_distance_matrix, 'delimiter', ' ');
 t_end = clock;
 fprintf('done (%f seconds)!\n', etime(t_end, t_begin));
 

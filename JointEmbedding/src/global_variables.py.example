@@ -106,7 +106,8 @@ g_lfd_hog_image_size = 128
 g_lfd_hog_features_file = os.path.join(g_data_folder, 'shape_embedding/lfd_hog_features'+g_shapenet_synset_set_handle+'.mat')
 
 # Pairwise distance
-g_shape_distance_matrix_file = os.path.join(g_data_folder, 'shape_embedding/shape_distance_matrix'+g_shapenet_synset_set_handle+'.mat')
+g_shape_distance_matrix_file_mat = os.path.join(g_data_folder, 'shape_embedding/shape_distance_matrix'+g_shapenet_synset_set_handle+'.mat')
+g_shape_distance_matrix_file_txt = os.path.join(g_data_folder, 'shape_embedding/shape_distance_matrix'+g_shapenet_synset_set_handle+'.txt')
 
 # Embedding space
 g_shape_embedding_space_dimension = 128

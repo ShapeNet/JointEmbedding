@@ -27,8 +27,8 @@ sorted_distances = sorted([(sum((query_embedding-shape_embedding)**2), idx) for 
 print 'Loading shape list from %s'%(g_shape_list_file)
 shape_list = [line.strip().split(' ') for line in open(g_shape_list_file, 'r')]
 
-visualization_filename = os.path.join(BASE_DIR, 'visualize_shape_embedding_space_%s.html'%(args.query_idx))
-visualization_template = os.path.join(BASE_DIR, 'visualize_shape_embedding_space.html')
+visualization_filename = os.path.join(BASE_DIR, 'visualize_embedding_space_KNN_%s.html'%(args.query_idx))
+visualization_template = os.path.join(BASE_DIR, 'visualize_embedding_space_KNN.html')
 print 'Saving visualization to %s...'%(visualization_filename)
 shutil.copy(visualization_template, visualization_filename)
 for line in fileinput.input(visualization_filename, inplace=True):
