@@ -17,7 +17,7 @@ if not os.path.exists(g_image_embedding_training_folder):
 train_val_in = os.path.join(BASE_DIR, 'pool5_joint_embedding.prototxt.in')
 print 'Preparing %s...'%(g_image_embedding_train_val_prototxt)
 shutil.copy(train_val_in, g_image_embedding_train_val_prototxt)
-for line in fileinput.input(train_val, inplace=True):
+for line in fileinput.input(g_image_embedding_train_val_prototxt, inplace=True):
     line = line.replace('/path/to/syn_images_pool5_lmdb_train', g_pool5_lmdb_train)
     line = line.replace('/path/to/syn_images_pool5_lmdb_val', g_pool5_lmdb_val)
     line = line.replace('/path/to/shape_embedding_lmdb_train', g_shape_embedding_lmdb_train)
@@ -29,7 +29,7 @@ for line in fileinput.input(train_val, inplace=True):
 solver_in = os.path.join(BASE_DIR, 'solver.prototxt.in')
 print 'Preparing %s...'%(g_image_embedding_solver_prototxt)
 shutil.copy(solver_in, g_image_embedding_solver_prototxt)
-for line in fileinput.input(solver, inplace=True):
+for line in fileinput.input(g_image_embedding_solver_prototxt, inplace=True):
     line = line.replace('_suffix', g_shapenet_synset_set_handle)
     sys.stdout.write(line)
     
@@ -37,9 +37,9 @@ for line in fileinput.input(solver, inplace=True):
 command_in = os.path.join(BASE_DIR, 'run_training.sh.in')
 print 'Preparing %s...'%(g_image_embedding_command_sh)
 shutil.copy(command_in, g_image_embedding_command_sh)
-for line in fileinput.input(command, inplace=True):
+for line in fileinput.input(g_image_embedding_command_sh, inplace=True):
     line = line.replace('/path/to/caffe_executable', os.path.join(g_caffe_install_path, 'bin/caffe'))
     line = line.replace('/path/to/caffemodel', g_fine_tune_caffemodel)
     sys.stdout.write(line)
-st = os.stat(command)
-os.chmod(command, st.st_mode | stat.S_IEXEC)
+st = os.stat(g_image_embedding_command_sh)
+os.chmod(g_image_embedding_command_sh, st.st_mode | stat.S_IEXEC)
