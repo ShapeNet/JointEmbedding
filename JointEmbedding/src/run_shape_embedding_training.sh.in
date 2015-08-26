@@ -36,25 +36,17 @@ then
   last=6;
 fi
 
-
 # Step 01
-# Generate shape list
-if [ "$first" -le 1 ] && [ "$last" -ge 1 ]; then
-  python ./generate_shape_list.py;
-fi
-
-
-# Step 02
 # Generate LFD images
-if [ "$first" -le 2 ] && [ "$last" -ge 2 ]; then
+if [ "$first" -le 1 ] && [ "$last" -ge 1 ]; then
   cd shape_embedding_training;
   python3 ./render_lfd_shape_list.py;
   cd ..;
 fi
 
-# Step 03
+# Step 02
 # Crop LFD images
-if [ "$first" -le 3 ] && [ "$last" -ge 3 ]; then
+if [ "$first" -le 2 ] && [ "$last" -ge 2 ]; then
   python ./convert_global_variables.py;
   cd shape_embedding_training;
   /path/to/matlab -nodisplay -r batch_crop_lfd_images;
@@ -62,9 +54,9 @@ if [ "$first" -le 3 ] && [ "$last" -ge 3 ]; then
 fi
 
 
-# Step 04
+# Step 03
 # Compute LFD HoG Features
-if [ "$first" -le 4 ] && [ "$last" -ge 4 ]; then
+if [ "$first" -le 3 ] && [ "$last" -ge 3 ]; then
   python ./convert_global_variables.py;
   cd shape_embedding_training;
   /path/to/matlab -nodisplay -r extract_lfd_hog_features;
@@ -72,9 +64,9 @@ if [ "$first" -le 4 ] && [ "$last" -ge 4 ]; then
 fi
 
 
-# Step 05
+# Step 04
 # Compute shape distance matrix
-if [ "$first" -le 5 ] && [ "$last" -ge 5 ]; then
+if [ "$first" -le 4 ] && [ "$last" -ge 4 ]; then
   python ./convert_global_variables.py;
   cd shape_embedding_training;
   /path/to/matlab -nodisplay -r compute_shape_distance_matrix;
@@ -82,9 +74,9 @@ if [ "$first" -le 5 ] && [ "$last" -ge 5 ]; then
 fi
 
 
-# Step 06
+# Step 05
 # Compute shape embedding space
-if [ "$first" -le 6 ] && [ "$last" -ge 6 ]; then
+if [ "$first" -le 5 ] && [ "$last" -ge 5 ]; then
   python ./convert_global_variables.py;
   cd shape_embedding_training;
   /path/to/matlab -nodisplay -r compute_shape_embedding_space;

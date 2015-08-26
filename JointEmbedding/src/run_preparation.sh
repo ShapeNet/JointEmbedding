@@ -32,8 +32,8 @@ fi
 
 if [ $last_flag -eq 0 ]
 then
-  echo "-l option is not presented, run the pipeline until last=2!"
-  last=2;
+  echo "-l option is not presented, run the pipeline until last=3!"
+  last=3;
 fi
 
 
@@ -51,4 +51,10 @@ fi
 # Prepare shell scripts
 if [ "$first" -le 2 ] && [ "$last" -ge 2 ]; then
   python ./prepare_shell_scripts.py
+fi
+
+# Step 03
+# Generate shape list
+if [ "$first" -le 3 ] && [ "$last" -ge 3 ]; then
+  python ./generate_shape_list.py;
 fi
