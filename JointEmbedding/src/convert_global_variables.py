@@ -23,6 +23,7 @@ global_variables_m_file.write('g_lfd_hog_extraction_thread_num = %d;\n' %(g_lfd_
 global_variables_m_file.write('g_lfd_hog_image_size = %d;\n' %(g_lfd_hog_image_size))
 global_variables_m_file.write('g_lfd_hog_features_file = \'%s\';\n' %(g_lfd_hog_features_file))
 global_variables_m_file.write('g_shape_distance_matrix_file_mat = \'%s\';\n' %(g_shape_distance_matrix_file_mat))
+global_variables_m_file.write('g_shape_distance_matrix_file_txt = \'%s\';\n' %(g_shape_distance_matrix_file_txt))
 global_variables_m_file.write('\n');
 global_variables_m_file.write('g_shape_embedding_space_dimension = %d;\n' %(g_shape_embedding_space_dimension))
 global_variables_m_file.write('g_shape_embedding_space_file_mat = \'%s\';\n' %(g_shape_embedding_space_file_mat))
