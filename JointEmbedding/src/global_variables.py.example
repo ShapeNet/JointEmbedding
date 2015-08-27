@@ -139,7 +139,7 @@ g_syn_images_cropped_folder = os.path.join(g_data_folder, 'image_embedding/syn_i
 
 # Background overlay
 g_syn_bkg_overlay_thread_num = g_thread_num #[take care!], try to match with #CPU core
-g_syn_cluttered_bkg_ratio = 0.7
+g_syn_cluttered_bkg_ratio = 0.9
 g_sun2012_data_folder = os.path.join(g_data_folder, 'image_embedding/sun2012_data')
 g_syn_bkg_filelist = os.path.join(g_sun2012_data_folder, 'filelist.txt');
 g_syn_bkg_folder = os.path.join(g_sun2012_data_folder, 'JPEGImages');
