@@ -28,7 +28,7 @@ parfor i = 1:image_num
     mask = double(alpha) / 255;
     mask = repmat(mask,1,1,3);
     
-    if rand() < clutteredBkgRatio
+    if rand() > clutteredBkgRatio
         I = uint8(double(I) .* mask + double(rand()*255) * (1 - mask));
     else
         while true
