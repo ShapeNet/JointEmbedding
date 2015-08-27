@@ -1,5 +1,8 @@
 clear all; close all; clc;
 
+BASEDIR = fullfile(mfilename('fullpath'),'../');
+addpath(fullfile(BASEIDR, 'results'));
+
 % Image to shape results
 sammon100_clutter_105models = importdata('sammon100_clutter_image2shape_topK_accuracy_105models.txt');
 hog_without_view_clutter_oracle_105models = importdata('hog_withoutview_clutter_image2shape_topK_accuracy_105models.txt');
@@ -21,6 +24,7 @@ mylegend =legend('Embedding (ours)', 'HoG', 'AlexNet pool5', 'AlexNet fc7', 'Sia
 set(mylegend,'FontSize',12, 'FontName', 'Times New Roman');
 
 % Shape to image results
+fprintf('shape2image median rank of first and last matched images.\n');
 sammon100_all_105models_rank = importdata('sammon100_tmp_first_last_appearance_median_rank.txt')
 hog_all_105models_rank = importdata('hog_withoutview_tmp_first_last_appearance_median_rank.txt')
 cnn_pool5_all_105models_rank = importdata('cnn_pool5_withoutview_tmp_first_last_appearance_median_rank.txt')
