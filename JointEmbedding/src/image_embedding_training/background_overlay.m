@@ -9,7 +9,7 @@ fprintf('done (%d images, %f seconds)!\n', image_num, etime(t_end, t_begin));
 
 sunImageList = importdata(bkgFilelist);
 
-fprintf('Start overlaying images at time %s, it takes for a while...\n', datestr(now, 'HH:MM:SS');
+fprintf('Start overlaying images at time %s, it takes for a while...\n', datestr(now, 'HH:MM:SS'));
 report_num = 80;
 fprintf([repmat('.',1,report_num) '\n\n']);
 report_step = floor((image_num+report_num-1)/report_num);
