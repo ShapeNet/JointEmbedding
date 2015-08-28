@@ -1,6 +1,6 @@
 name: "AlexNet"
 input: "data"
-input_dim: 1024
+input_dim: 512
 input_dim: 3
 input_dim: 227
 input_dim: 227
