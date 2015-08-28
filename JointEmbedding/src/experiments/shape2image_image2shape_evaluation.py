@@ -6,6 +6,10 @@ import tempfile
 from scipy.spatial.distance import *
 import os
 
+BASEDIR = os.path.dirname(os.path.abspath(__file__))
+EXACTMATCH_DATASET = os.path.join(BASEDIR, 'ExactMatchChairsDataset')
+RESULTDIR = os.path.join(BASEDIR,'results')
+
 parser = argparse.ArgumentParser(description="shape2image and image2shape evaluation on exact-match-chair dataset.")
 parser.add_argument('-m', '--img_model_ids_file', help='File, each line is model id (0to6776) of img.', required=True)
 parser.add_argument('-i', '--input_npy_file', help='Input numpy file (pool5 feature), contains an array of N*C*H*W', required=True)
@@ -23,11 +27,11 @@ parser.add_argument('--feat_dim', help='Embedding feat dim (default=100)', defau
 args = parser.parse_args()
 
 # 315 test image names
-img_names = [x.rstrip() for x in open('/orions3-zfs/projects/rqi/Dataset/ExactMatchChairsDataset/exact_match_chairs_img_filelist.txt','r')]
+img_names = [x.rstrip() for x in open(os.path.join(EXACTMATCH_DATASET, 'exact_match_chairs_img_filelist.txt'),'r')]
 # 105 modelIds of exact match dataset
-exact_match_modelIds = [int(x.rstrip()) for x in open('/orions3-zfs/projects/rqi/Dataset/ExactMatchChairsDataset/exact_match_chairs_shape_modelIds_0to6776.txt','r')]
+exact_match_modelIds = [int(x.rstrip()) for x in open(os.path.join(EXACTMATCH_DATASET, 'exact_match_chairs_shape_modelIds_0to6776.txt'),'r')]
 # 141 cluttered image index (in 315 test images) 
-exact_match_cluttered_indicies = [int(x.rstrip()) for x in open('/orions3-zfs/projects/rqi/Dataset/ExactMatchChairsDataset/exact_match_chairs_cluttered_img_indicies_0to314.txt','r')]
+exact_match_cluttered_indicies = [int(x.rstrip()) for x in open(os.path.join(EXACTMATCH_DATASET, 'exact_match_chairs_cluttered_img_indicies_0to314.txt'),'r')]
 exact_match_clean_indicies = [x for x in range(315) if x not in exact_match_cluttered_indicies]
 # 315 image model ids
 image_model_ids = np.loadtxt(args.img_model_ids_file)
@@ -66,8 +70,8 @@ else:
   embedding_model_path = args.model_param_file
   
   # get image embedding from pool5 features
-  feat_name = './tmp_image_embedding'
-  cmd = '/orions3-zfs/projects/rqi/Code/extract_feature/extract_feature_batch_generic_newversion.py'
+  feat_name = os.path.join(RESULTDIR, 'tmp_image_embedding')
+  cmd = os.path.join(BASEDIR, '/extract_feature_batch_generic.py')
   subprocess.call(['python', cmd, '-i', args.input_npy_file, '-d', deploy_file, '-p', embedding_model_path, '-b', str(50), '--feat_dim', str(args.feat_dim), '--feat_name', 'fc8_embedding', '--save_file', feat_name, '--save_file_format', 'npy'])
   
   # compute distances between images and shapes
@@ -85,7 +89,7 @@ else:
 #
 # IMAGE2SHAPE
 #
-dist_name = './tmp_image2shape_dist.txt'
+dist_name = os.path.join(RESULTDIR, 'tmp_image2shape_dist.txt')
 np.savetxt(dist_name, D)
 
 print np.shape(D)
@@ -124,7 +128,7 @@ np.savetxt(args.result_id+'_image2shape_topK_accuracy_105models.txt', image2shap
 #
 # SHAPE2IMAGE
 #
-dist_name = './tmp_shape2image_dist.txt'
+dist_name = os.path.join(RESULTDIR, 'tmp_shape2image_dist.txt')
 np.savetxt(dist_name, D.transpose())
 
 image_model_ids_set = set(image_model_ids)
