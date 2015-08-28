@@ -101,10 +101,14 @@ g_lfd_camera_azimuth_dict = {
 g_lfd_images_folder = os.path.join(g_data_folder, 'shape_embedding/lfd_images')
 
 # Cropping
+# Consider change the default parfor worker number in matlab by following the instructions here:
+# http://www.mathworks.com/help/distcomp/saveprofile.html
 g_lfd_cropping_thread_num = g_thread_num # [take care!], try to match with #CPU core
 g_lfd_images_cropped_folder = os.path.join(g_data_folder, 'shape_embedding/lfd_images_cropped')
 
 # HoG feature extraction
+# Consider change the default parfor worker number in matlab by following the instructions here:
+# http://www.mathworks.com/help/distcomp/saveprofile.html
 g_lfd_hog_extraction_thread_num = g_thread_num # [take care!], try to match with #CPU core
 g_lfd_hog_image_size = 120
 g_lfd_hog_features_file = os.path.join(g_data_folder, 'shape_embedding/lfd_hog_features'+g_shapenet_synset_set_handle+'.mat')
@@ -134,10 +138,14 @@ g_syn_camera_dist = 3
 g_syn_images_folder = os.path.join(g_data_folder, 'image_embedding/syn_images')
 
 # Cropping
+# Consider change the default parfor worker number in matlab by following the instructions here:
+# http://www.mathworks.com/help/distcomp/saveprofile.html
 g_syn_cropping_thread_num = g_thread_num # [take care!], try to match with #CPU core
 g_syn_images_cropped_folder = os.path.join(g_data_folder, 'image_embedding/syn_images_cropped')
 
 # Background overlay
+# Consider change the default parfor worker number in matlab by following the instructions here:
+# http://www.mathworks.com/help/distcomp/saveprofile.html
 g_syn_bkg_overlay_thread_num = g_thread_num #[take care!], try to match with #CPU core
 g_syn_cluttered_bkg_ratio = 0.9
 g_sun2012_data_folder = os.path.join(g_data_folder, 'image_embedding/sun2012_data')
