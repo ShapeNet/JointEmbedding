@@ -1,0 +1,202 @@
+name: "AlexNet"
+layer {
+  name: "data"
+  type: "Data"
+  top: "pool5"
+  include {
+    phase: TRAIN
+  }
+  data_param {
+    source: "/path/to/syn_images_pairs_pool5_lmdb_train"
+    batch_size: 1024 
+    backend: LMDB
+  }
+}
+layer {
+  name: "data"
+  type: "Data"
+  top: "pool5"
+  include {
+    phase: TEST
+  }
+  data_param {
+    source: "/path/to/syn_images_pairs_pool5_lmdb_val"
+    batch_size: 512
+    backend: LMDB
+  }
+}
+layer {
+  name: "fc6"
+  type: "InnerProduct"
+  bottom: "pool5"
+  top: "fc6"
+  param {
+    name: "fc6_w"
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    name: "fc6_b"
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+
+layer {
+  name: "fc6_p"
+  type: "InnerProduct"
+  bottom: "pool5_p"
+  top: "fc6_p"
+  param {
+    name: "fc6_w"
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    name: "fc6_b"
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+
+layer {
+  name: "relu6"
+  type: "ReLU"
+  bottom: "fc6"
+  top: "fc6"
+}
+
+layer {
+  name: "relu6_p"
+  type: "ReLU"
+  bottom: "fc6_p"
+  top: "fc6_p"
+}
+
+layer {
+  name: "fc7"
+  type: "InnerProduct"
+  bottom: "fc6"
+  top: "fc7"
+  param {
+    name: "fc7_w"
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    name: "fc7_b"
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+
+layer {
+  name: "fc7_p"
+  type: "InnerProduct"
+  bottom: "fc6_p"
+  top: "fc7_p"
+  param {
+    name: "fc7_w"
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    name: "fc7_b"
+    lr_mult: 2
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+  }
+}
+
+layer {
+  name: "relu7"
+  type: "ReLU"
+  bottom: "fc7"
+  top: "fc7"
+}
+
+layer {
+  name: "relu7_p"
+  type: "ReLU"
+  bottom: "fc7_p"
+  top: "fc7_p"
+}
+
+layer {
+  name: "image_embedding"
+  type: "InnerProduct"
+  bottom: "fc7"
+  top: "image_embedding"
+  param {
+    name: "image_embedding_w"
+    lr_mult: 10
+    decay_mult: 1
+  }
+  param {
+    name: "image_embedding_b"
+    lr_mult: 20
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: embedding_space_dim
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "image_embedding_p"
+  type: "InnerProduct"
+  bottom: "fc7_p"
+  top: "image_embedding_p"
+  param {
+    name: "image_embedding_w"
+    lr_mult: 10
+    decay_mult: 1
+  }
+  param {
+    name: "image_embedding_b"
+    lr_mult: 20
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: embedding_space_dim
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      value: 0
+    }
+  }
+}
+
+layer {
+  name: "embedding_loss"
+  type: "ContrastiveLoss"
+  bottom: "image_embedding"
+  bottom: "image_embedding_p"
+  bottom: "similar_or_not"
+  top: "embedding_loss"
+  contrastive_loss_param {
+    margin: contrastive_loss_margin
+  }
+}

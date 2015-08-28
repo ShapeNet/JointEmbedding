@@ -14,6 +14,8 @@ image_num = len(filelist)
 train_val_split = [1]*image_num
 val_num = int(image_num*(1-g_train_ratio))
 train_val_split[0:val_num] = [0]*val_num
+
+random.seed(9527) # seed random with a fixed number
 shuffle(train_val_split)
 
 filelist_train = open(g_syn_images_filelist_train, 'w')

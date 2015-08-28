@@ -18,9 +18,6 @@ from global_variables import *
 sys.path.append(os.path.join(g_caffe_install_path, 'python'))
 import caffe
 
-if not os.path.exists(g_image_embedding_testing_folder):
-    os.makedirs(g_image_embedding_testing_folder)
-
 parser = argparse.ArgumentParser(description="Stitch pool5 extraction and image embedding caffemodels together.")
 parser.add_argument('--iter_num', '-n', help='Use image embedding model trained after iter_num iterations', type=int, default=20000)
 args = parser.parse_args()

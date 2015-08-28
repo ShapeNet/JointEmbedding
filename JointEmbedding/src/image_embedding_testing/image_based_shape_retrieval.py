@@ -59,13 +59,15 @@ image_embedding = image_embedding_array[0, :, 0, 0]
 
 print 'Loading shape embedding space from %s...'%(g_shape_embedding_space_file_txt)
 shape_embedding_space = [np.array([float(value) for value in line.strip().split(' ')]) for line in open(g_shape_embedding_space_file_txt, 'r')]
+assert(image_embedding.size == shape_embedding_space[0].size)
 
 print 'Computing distances and ranking...'
 sorted_distances = sorted([(sum((image_embedding-shape_embedding)**2), idx) for idx, shape_embedding in enumerate(shape_embedding_space)])
+print sorted_distances[0:args.top_k]
 
 print 'Loading shape list from %s'%(g_shape_list_file)
 shape_list = [line.strip().split(' ') for line in open(g_shape_list_file, 'r')]
-
+assert(len(shape_list) == len(shape_embedding_space))
 
 visualization_filename = os.path.splitext(args.image)[0]+'_retrieval.html'
 print 'Saving visualization to %s...'%(visualization_filename)

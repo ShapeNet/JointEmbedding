@@ -14,7 +14,7 @@ if not os.path.exists(g_image_embedding_training_folder):
     os.makedirs(g_image_embedding_training_folder)
     
 # Prepare train_val.prototxt
-train_val_in = os.path.join(BASE_DIR, 'pool5_joint_embedding.prototxt.in')
+train_val_in = os.path.join(BASE_DIR, 'train_val.prototxt.in')
 print 'Preparing %s...'%(g_image_embedding_train_val_prototxt)
 shutil.copy(train_val_in, g_image_embedding_train_val_prototxt)
 for line in fileinput.input(g_image_embedding_train_val_prototxt, inplace=True):
