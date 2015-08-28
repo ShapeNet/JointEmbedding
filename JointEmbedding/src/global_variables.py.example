@@ -170,6 +170,8 @@ g_pool5_lmdb_val = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5
 # The g_extract_feat_prototxt is based on g_fine_tune_caffemodel
 # If you want to try a different caffemodel, modify g_extract_feat_prototxt accordingly
 g_extract_feat_prototxt = os.path.join(SRC_ROOT, 'image_embedding_training/pool5_feature_extraction.prototxt') #[take care!]
+# Consider change the default parfor worker number in matlab by following the instructions here:
+# http://www.mathworks.com/help/distcomp/saveprofile.html
 g_extract_feat_thread_num = g_thread_num #[take care!], try to match with #CPU core
 g_extract_feat_gpu_index = 0 #[take care!], which GPU to use for pool5 extraction
 

@@ -33,7 +33,7 @@ fprintf('Each shape will be converted into HoG feature of %d dimensions!\n', hog
 %% compute the HoG feature for the LFD images
 fprintf('Start LFD HoG feature extraction at time...it takes for a while!!\n', datestr(now, 'HH:MM:SS'));
 local_cluster = parcluster('local');
-poolobj=parpool('local', min(g_lfd_cropping_thread_num, local_cluster.NumWorkers));
+poolobj=parpool('local', min(g_lfd_extract_feat_thread_num, local_cluster.NumWorkers));
 report_num = 80; 
 report_step = floor((shape_count+report_num-1)/report_num);
 t_begin = clock;
