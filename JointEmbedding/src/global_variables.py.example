@@ -171,8 +171,7 @@ g_syn_images_train_val_split = os.path.join(g_data_folder, 'image_embedding/syn_
 g_pool5_lmdb = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle)
 g_pool5_lmdb_train = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle+'_train')
 g_pool5_lmdb_val = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle+'_val')
-# The g_extract_feat_prototxt is based on g_fine_tune_caffemodel
-# If you want to try a different caffemodel, modify g_extract_feat_prototxt accordingly
+# Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_extract_feat_prototxt accordingly
 g_extract_feat_prototxt = os.path.join(SRC_ROOT, 'image_embedding_training/pool5_feature_extraction.prototxt') #[take care!]
 # Consider change the default parfor worker number in matlab by following the instructions here:
 # http://www.mathworks.com/help/distcomp/saveprofile.html
@@ -187,8 +186,7 @@ g_shape_embedding_lmdb_val = os.path.join(g_data_folder, 'shape_embedding/shape_
 g_image_embedding_training_folder = os.path.join(g_data_folder, 'image_embedding/image_embedding_training'+g_shapenet_synset_set_handle)
 if not os.path.exists(g_image_embedding_training_folder):
     os.makedirs(g_image_embedding_training_folder)
-# The g_extract_feat_prototxt is based on g_fine_tune_caffemodel
-# If you want to try a different caffemodel, modify g_image_embedding_train_val_prototxt accordingly
+# Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_image_embedding_train_val_prototxt accordingly
 g_image_embedding_train_val_prototxt = os.path.join(g_image_embedding_training_folder, 'train_val.prototxt') # [take care!] 
 g_image_embedding_solver_prototxt = os.path.join(g_image_embedding_training_folder, 'solver.prototxt')
 g_image_embedding_command_sh = os.path.join(g_image_embedding_training_folder, 'run_training.sh')
@@ -197,8 +195,7 @@ g_image_embedding_command_sh = os.path.join(g_image_embedding_training_folder, '
 g_image_embedding_testing_folder = os.path.join(g_data_folder, 'image_embedding/image_embedding_testing'+g_shapenet_synset_set_handle)
 if not os.path.exists(g_image_embedding_testing_folder):
     os.makedirs(g_image_embedding_testing_folder)
-# The g_extract_feat_prototxt is based on g_fine_tune_caffemodel
-# If you want to try a different caffemodel, modify g_image_embedding_testing_prototxt accordingly
+# Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_image_embedding_testing_prototxt accordingly
 g_image_embedding_testing_prototxt = os.path.join(g_image_embedding_testing_folder, 'image_embedding.prototxt') # [take care!]
 
 
@@ -219,8 +216,14 @@ g_pairs_pool5_lmdb_val = os.path.join(g_data_folder, 'siamese_embedding/syn_imag
 g_siamese_embedding_training_folder = os.path.join(g_data_folder, 'siamese_embedding/siamese_embedding_training'+g_shapenet_synset_set_handle)
 if not os.path.exists(g_siamese_embedding_training_folder):
     os.makedirs(g_siamese_embedding_training_folder)
-# The g_extract_feat_prototxt is based on g_fine_tune_caffemodel
-# If you want to try a different caffemodel, modify g_image_embedding_train_val_prototxt accordingly
+# Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_siamese_embedding_train_val_prototxt accordingly
 g_siamese_embedding_train_val_prototxt = os.path.join(g_siamese_embedding_training_folder, 'train_val.prototxt') # [take care!] 
 g_siamese_embedding_solver_prototxt = os.path.join(g_siamese_embedding_training_folder, 'solver.prototxt')
 g_siamese_embedding_command_sh = os.path.join(g_siamese_embedding_training_folder, 'run_training.sh')
+g_siamese_embedding_testing_folder = os.path.join(g_data_folder, 'siamese_embedding/siamese_embedding_testing'+g_shapenet_synset_set_handle)
+if not os.path.exists(g_siamese_embedding_testing_folder):
+    os.makedirs(g_siamese_embedding_testing_folder)
+# Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_siamese_embedding_testing_prototxt accordingly
+g_siamese_embedding_testing_prototxt = os.path.join(g_siamese_embedding_testing_folder, 'siamese_embedding.prototxt') # [take care!]
+
+
