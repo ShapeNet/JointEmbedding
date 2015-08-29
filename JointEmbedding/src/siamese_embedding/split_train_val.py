@@ -2,14 +2,15 @@
 # -*- coding: utf-8 -*-
 
 import os, sys
+import random
 from random import shuffle
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(BASE_DIR))
 from global_variables import *
 
-filelist = [line.strip() for line in open(g_syn_images_pairs_pairs_filelist, 'r')]
-imageid2shapeid = [line.strip() for line in open(g_syn_images_pairs_imageid2shapeid, 'r')]
+filelist = [line.strip() for line in open(g_syn_images_pairs_filelist, 'r')]
+imageid2shapeid = [line.strip() for line in open(g_syn_images_imageid2shapeid, 'r')]
 image_image_pair_num = len(filelist)
 train_val_split = [1]*image_image_pair_num
 val_num = int(image_image_pair_num*(1-g_train_ratio))
