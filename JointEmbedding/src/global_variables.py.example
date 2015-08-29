@@ -212,6 +212,7 @@ g_syn_images_pairs_train_val_split = os.path.join(g_data_folder, 'siamese_embedd
 g_syn_images_pairs_filelist_train = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_filelist'+g_shapenet_synset_set_handle+'_train.txt')
 g_syn_images_pairs_filelist_val = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_filelist'+g_shapenet_synset_set_handle+'_val.txt')
 
+g_gen_siamese_lmdb_thread_num = g_thread_num #[take care!], try to match with #CPU core
 g_pairs_pool5_lmdb_train = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_pool5_lmdb'+g_shapenet_synset_set_handle+'_train')
 g_pairs_pool5_lmdb_val = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_pool5_lmdb'+g_shapenet_synset_set_handle+'_val')
 
