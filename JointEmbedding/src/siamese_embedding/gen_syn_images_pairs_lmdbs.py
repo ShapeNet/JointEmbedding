@@ -37,21 +37,22 @@ with env.begin() as txn:
         datum.ParseFromString(value)
         datum_array = caffe.io.datum_to_array(datum)
         break;
+print datetime.datetime.now().time(), '- the shape of the datum is:', datum_array.shape
+
 shared_array_base = multiprocessing.Array(ctypes.c_double, syn_images_num*datum_array.size)
 shared_array = np.ctypeslib.as_array(shared_array_base.get_obj())
 shared_array = shared_array.reshape([syn_images_num]+list(datum_array.shape))
 
 def image_pair_to_string(pair_info, def_param=shared_array):
-    image_pair = pair_info[0]
-    pair_idx = pair_info[1]
-    array_1_id = image_pair[0]
-    array_2_id = image_pair[1]
+    array_1_id = pair_info[0]
+    array_2_id = pair_info[1]
+    similar_or_not = pair_info[2]
     array_1 = shared_array[array_1_id, :]
     array_2 = shared_array[array_2_id, :]
     
     array = np.concatenate((array_1, array_2), axis=0)
     datum = caffe.io.array_to_datum(array)
-    datum.label = pair_idx
+    datum.label = similar_or_not
     return datum.SerializeToString() 
 
 def string_to_array(datum_string_idx, def_param=shared_array):
@@ -102,7 +103,7 @@ for idx, image_pair in enumerate(image_pair_list):
     key_idx = '{:0>10d}'.format(idx)
     if train_val_split[idx]:
         cache_train_id.append(key_idx)
-        cache_train_image_pair.append((image_pair, idx))
+        cache_train_image_pair.append(image_pair)
         if (len(cache_train_id) == txn_commit_count or idx == len(train_val_split)-1):
             train_string_list = pool.map(image_pair_to_string, cache_train_image_pair)
             with env_train.begin(write=True) as txn_train:
@@ -112,7 +113,7 @@ for idx, image_pair in enumerate(image_pair_list):
             del cache_train_image_pair[:]
     else:
         cache_val_id.append(key_idx)
-        cache_val_image_pair.append((image_pair, idx))
+        cache_val_image_pair.append(image_pair)
         if (len(cache_val_id) == txn_commit_count or idx == len(train_val_split)-1):
             val_string_list = pool.map(image_pair_to_string, cache_val_image_pair)
             with env_val.begin(write=True) as txn_val:

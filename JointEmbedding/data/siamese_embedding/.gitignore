@@ -1,2 +1,4 @@
 siamese_embedding_training_*
 syn_images_pairs_filelist_*.txt
+syn_images_pairs_pool5_lmdb_*
+syn_images_pairs_train_val_split_*.txt

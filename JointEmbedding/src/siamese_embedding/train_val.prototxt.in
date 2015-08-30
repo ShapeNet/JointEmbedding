@@ -1,8 +1,9 @@
 name: "AlexNet"
 layer {
-  name: "data"
+  name: "pair_data"
   type: "Data"
-  top: "pool5"
+  top: "pair_data"
+  top: "similar_or_not"
   include {
     phase: TRAIN
   }
@@ -13,9 +14,10 @@ layer {
   }
 }
 layer {
-  name: "data"
+  name: "pair_data"
   type: "Data"
-  top: "pool5"
+  top: "pair_data"
+  top: "similar_or_not"
   include {
     phase: TEST
   }
@@ -23,6 +25,17 @@ layer {
     source: "/path/to/syn_images_pairs_pool5_lmdb_val"
     batch_size: 512
     backend: LMDB
+  }
+}
+layer {
+  name: "slice_pair"
+  type: "Slice"
+  bottom: "pair_data"
+  top: "pool5"
+  top: "pool5_p"
+  slice_param {
+    slice_dim: 1
+    slice_point: 9216
   }
 }
 layer {
