@@ -131,6 +131,7 @@ g_shape_embedding_space_file_txt = os.path.join(g_data_folder, 'shape_embedding/
 # Image embedding
 ##############################################################################
 # Rendering
+g_blank_blend_file_path = os.path.join(SRC_ROOT, 'blank.blend')
 g_syn_rendering_thread_num = g_thread_num #[take care!], try to match with #CPU core
 g_images_per_synset = 850000
 g_view_distribution_folder = os.path.join(g_data_folder, 'image_embedding/view_distribution')
@@ -226,4 +227,15 @@ if not os.path.exists(g_siamese_embedding_testing_folder):
 # Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_siamese_embedding_testing_prototxt accordingly
 g_siamese_embedding_testing_prototxt = os.path.join(g_siamese_embedding_testing_folder, 'siamese_embedding.prototxt') # [take care!]
 
+
+##############################################################################
+# Experiments (for evaluation)
+##############################################################################
+# parmas for rendering pure (fixedview) images
+g_fixedview_image_per_model = 100
+g_fixedview_image_folder = os.path.join(g_data_folder, 'image_embedding/pure_fixedview_images')
+g_fixedview_elevation_degs = [0,10,20,30,40]
+g_fixedview_elevation_sample_deg = 20
+g_fixedview_azimuth_degs = range(0,360,18)
+g_fixedview_light_num = 4
 
