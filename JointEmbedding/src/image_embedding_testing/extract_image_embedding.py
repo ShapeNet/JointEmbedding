@@ -33,6 +33,7 @@ if args.caffemodel:
 if args.prototxt:
     prototxt = args.prototxt
 
+
 # INIT NETWORK
 caffe.set_mode_gpu()
 caffe.set_device(args.gpu_index)
