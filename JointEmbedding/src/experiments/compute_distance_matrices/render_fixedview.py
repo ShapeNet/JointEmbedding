@@ -133,7 +133,7 @@ bpy.ops.object.delete()
 
 # YOUR CODE START HERE
 numLight = g_fixedview_light_num
-lightDist = g_syn_light_dist
+light_dist = (g_syn_light_dist_lowbound+g_syn_light_dist_highbound)/2
 # print(list(bpy.data.objects))
 
 rhos = [g_syn_camera_dist]
@@ -160,7 +160,7 @@ for azimuth_deg in azimuth_degs:
     for i in range(4):
         light_azimuth_deg = 90*i
         light_elevation_deg  = 60
-        lx, ly, lz = obj_centened_camera_pos(lightDist, light_azimuth_deg, light_elevation_deg)
+        lx, ly, lz = obj_centened_camera_pos(light_dist, light_azimuth_deg, light_elevation_deg)
         bpy.ops.object.lamp_add(type='POINT', view_align = False, location=(lx, ly, lz))
         bpy.data.objects['Point'].data.energy = 3
 

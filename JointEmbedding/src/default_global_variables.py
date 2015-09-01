@@ -21,7 +21,7 @@ g_blender_executable_path = os.path.abspath(os.path.join(g_3rd_party_folder, 'bl
 g_piotr_toolbox_git = 'https://github.com/pdollar/toolbox'
 g_piotr_toolbox_path = os.path.abspath(os.path.join(g_3rd_party_folder, 'piotr_toolbox'))
 # Follow Caffe homepage for the installation instructions of Caffe.
-g_caffe_install_path = os.path.abspath('/orions-zfs/software/caffe_default/install') # [take care!!!]
+g_caffe_install_path = os.path.abspath('/opt/caffe') # [take care!!!]
 g_matlab_executable_path = os.path.abspath('/usr/local/bin/matlab') # [take care!!!]
 g_shapenet_root_folder = os.path.join(g_data_folder, 'ShapeNetCore2015Summer') # [take care!!!], where you put ShapeNet data
 g_sun2012_data_url = 'http://groups.csail.mit.edu/vision/SUN/releases/SUN2012pascalformat.tar.gz'
@@ -136,9 +136,10 @@ g_syn_rendering_thread_num = g_thread_num #[take care!], try to match with #CPU 
 g_images_per_synset = 850000
 g_view_distribution_folder = os.path.join(g_data_folder, 'image_embedding/view_distribution')
 g_view_distribution_files = dict(zip(all_shapenet_synset_set, [os.path.join(g_view_distribution_folder, synset+'.txt') for synset in all_shapenet_synset_set]))
-g_syn_light_num_lowbound = 4
-g_syn_light_num_highbound = 8
-g_syn_light_dist = 14.14
+g_syn_light_num_lowbound = 0
+g_syn_light_num_highbound = 4
+g_syn_light_dist_lowbound = 8
+g_syn_light_dist_highbound = 20
 g_syn_camera_dist = 3
 g_syn_images_folder = os.path.join(g_data_folder, 'image_embedding/syn_images')
 

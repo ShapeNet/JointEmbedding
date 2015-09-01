@@ -121,20 +121,6 @@ view_params = [[float(x) for x in line.strip().split(' ')] for line in open(shap
 if not os.path.exists(syn_images_folder):
     os.makedirs(syn_images_folder)
 
-#render_task_finished = True
-#for azimuth_deg in g_lfd_camera_elevation_dict[shape_synset]:
-#    for elevation_deg in g_lfd_camera_azimuth_dict[shape_synset]:
-#        theta_deg = 0
-#        lfd_image_file= '%s_%s_a%03d_e%03d_t%03d_d%03d.png' % (shape_synset, shape_md5, round(azimuth_deg), round(elevation_deg), round(theta_deg), round(g_lfd_camera_dist))
-#        if not os.path.isfile(os.path.join(lfd_images_folder, lfd_image_file)):
-#            render_task_finished = False
-#            break
-#    if not render_task_finished:
-#        break
-#if render_task_finished:
-#    exit()
-      
-
 bpy.ops.import_scene.obj(filepath=shape_file) 
 
 bpy.context.scene.render.alpha_mode = 'TRANSPARENT'
@@ -157,8 +143,6 @@ bpy.ops.object.delete()
 
 # YOUR CODE START HERE
 
-lightDist = g_syn_light_dist
-
 for param in view_params:
     azimuth_deg = param[0]
     elevation_deg = param[1]
@@ -179,7 +163,8 @@ for param in view_params:
     for i in range(random.randint(g_syn_light_num_lowbound,g_syn_light_num_highbound)):
         light_azimuth_deg = np.random.uniform(0, 360)
         light_elevation_deg  = np.random.uniform(-90, 90)
-        lx, ly, lz = obj_centened_camera_pos(lightDist, light_azimuth_deg, light_elevation_deg)
+        light_dist = np.random.uniform(g_syn_light_dist_lowbound, g_syn_light_dist_highbound)
+        lx, ly, lz = obj_centened_camera_pos(light_dist, light_azimuth_deg, light_elevation_deg)
         bpy.ops.object.lamp_add(type='POINT', view_align = False, location=(lx, ly, lz))
         bpy.data.objects['Point'].data.energy = np.random.normal(2, 2)
 
