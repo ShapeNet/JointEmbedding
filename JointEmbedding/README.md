@@ -41,7 +41,7 @@ The code is written by python, matlab and shell. There is no need for any instal
 
     git clone https://github.com/ShapeNet/Applications.git ShapeNetAppliations;
     cd ShapeNetApplications/JointEmbedding/src;
-    cp global_variables.py.example global_variables.py
+    cp default_global_variables.py global_variables.py
     
 #### 2.5. Run the pipeline
 1. Edit `global_variables.py`, especially the ones marked by **[take care!]**

@@ -1,3 +1,4 @@
+global_variables.py
 run_shape_embedding_training.sh
 run_image_embedding_training.sh
 *.pyc
