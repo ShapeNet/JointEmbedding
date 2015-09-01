@@ -1,7 +1,7 @@
 clear all; close all; clc;
 
 BASEDIR = fullfile(mfilename('fullpath'),'../');
-addpath(fullfile(BASEIDR, 'results'));
+addpath(fullfile(BASEDIR, 'results'));
 
 % Image to shape results
 sammon100_clutter_105models = importdata('sammon100_clutter_image2shape_topK_accuracy_105models.txt');

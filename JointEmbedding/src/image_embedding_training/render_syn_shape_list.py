@@ -63,7 +63,7 @@ if __name__ == '__main__':
             tmp.write(bytes(tmp_string, 'UTF-8'))
         tmp.close()
 
-        command = '%s ../blank.blend --background --python render_syn_single_shape.py -- %s %s %s %s > /dev/null 2>&1' % (g_blender_executable_path, shape_file, shape_synset, shape_md5, tmp.name)
+        command = '%s %s --background --python %s -- %s %s %s %s > /dev/null 2>&1' % (g_blender_executable_path, g_blank_blend_file_path, os.paht.join(BASE_DIR, render_syn_single_shape.py), shape_file, shape_synset, shape_md5, tmp.name)
         #command = '%s ../blank.blend --background --python render_syn_single_shape.py -- %s %s %s %s ' % (g_blender_executable_path, shape_file, shape_synset, shape_md5, tmp.name)
         commands.append(command)
     print('done (%d commands)!'%(len(commands)))
