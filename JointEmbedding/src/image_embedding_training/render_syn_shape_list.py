@@ -36,9 +36,12 @@ if __name__ == '__main__':
         shape_synset_images_per_shape[synset] = int(g_images_per_synset / shape_synset_count[synset])
     print('shape_synset_images_per_shape: ', shape_synset_images_per_shape)
 
-    # readin view distribution file
+    # reading view distribution file
     shape_synset_view_params = dict()
     for synset in shape_synset_count:
+        if not os.path.exists(g_view_distribution_files[synset]):
+            print 'Failed to read view distribution files from %s for synset %s'%(g_view_distribution_files[synset], synset)
+            exit()
         view_params = open(g_view_distribution_files[synset]).readlines()
         view_params = [[float(x) for x in line.strip().split(' ')] for line in view_params] 
         shape_synset_view_params[synset] = view_params

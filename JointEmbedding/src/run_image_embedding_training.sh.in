@@ -32,8 +32,8 @@ fi
 
 if [ $last_flag -eq 0 ]
 then
-  echo "-l option is not presented, run the pipeline until last=6!"
-  last=6;
+  echo "-l option is not presented, run the pipeline until last=8!"
+  last=8;
 fi
 
 
@@ -54,41 +54,50 @@ if [ "$first" -le 2 ] && [ "$last" -ge 2 ]; then
 fi
 
 # Step 03
-# Generate synthetic images
+# Generate view distribution files
 if [ "$first" -le 3 ] && [ "$last" -ge 3 ]; then
+  cd image_embedding_training;
+  python ./gen_view_distribution_files.py;
+  cd ..;
+fi
+
+# Step 04
+# Generate synthetic images
+if [ "$first" -le 4 ] && [ "$last" -ge 4 ]; then
   cd image_embedding_training;
   python3 ./render_syn_shape_list.py;
   cd ..;
 fi
 
-# Step 04 # Crop synthetic images
-if [ "$first" -le 4 ] && [ "$last" -ge 4 ]; then
+# Step 05
+# Crop synthetic images
+if [ "$first" -le 5 ] && [ "$last" -ge 5 ]; then
   python ./convert_global_variables.py;
   cd image_embedding_training;
   /path/to/matlab -nodisplay -r batch_crop_syn_images;
   cd ..;
 fi
 
-# Step 05
+# Step 06
 # Background overlay
-if [ "$first" -le 5 ] && [ "$last" -ge 5 ]; then
+if [ "$first" -le 6 ] && [ "$last" -ge 6 ]; then
   python ./convert_global_variables.py;
   cd image_embedding_training;
   /path/to/matlab -nodisplay -r background_overlay_syn_images;
   cd ..;
 fi
 
-# Step 06
+# Step 07
 # Generate synthetic images filelist
-if [ "$first" -le 6 ] && [ "$last" -ge 6 ]; then
+if [ "$first" -le 7 ] && [ "$last" -ge 7 ]; then
   cd image_embedding_training;
   python ./gen_syn_filelist.py
   cd ..;
 fi
 
-# Step 07
+# Step 08
 # Convert images into pool5 lmdb
-if [ "$first" -le 7 ] && [ "$last" -ge 7 ]; then
+if [ "$first" -le 8 ] && [ "$last" -ge 8 ]; then
   cd image_embedding_training;
   python ./extract_pool5_feats.py
   cd ..;
