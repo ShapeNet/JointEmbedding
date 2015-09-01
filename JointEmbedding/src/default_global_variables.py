@@ -137,13 +137,20 @@ g_images_per_synset = 850000
 g_view_distribution_folder = os.path.join(g_data_folder, 'image_embedding/view_distribution')
 g_view_distribution_files = dict(zip(all_shapenet_synset_set, [os.path.join(g_view_distribution_folder, synset+'.txt') for synset in all_shapenet_synset_set]))
 g_view_distribution_params = dict()
-# chair, car, aeroplane view distr params
-# first list is for azimuth, 16 slots each for [22.5*i-11.25,22.5*i+11.25]
-# second list is for elevation, 18 slots each for [10*i-90,10*i-80]
-# last number is for tilt deviation, normal(0,s)
+#-----------------------------------------------------------------------------
+# The camera view distributions are category specific
+# Ideally, they should be learned from large image collections with camera view annotations.
+# Otherwise, just try to specify a rough approximation.
+# First list is for azimuth, 16 slots each for [22.5*i-11.25,22.5*i+11.25]
+# Second list is for elevation, 18 slots each for [10*i-90,10*i-80]
+# Last number is for tilt deviation, normal(0,s)
+# Note that, the scale of the values in the two list doesn't matter
+#-----------------------------------------------------------------------------
 g_view_distribution_params['03001627'] = [[93, 90, 79, 66, 56, 49, 45, 44, 45, 46, 48, 51, 56, 63, 75, 87],[1, 1, 1, 1, 1, 1, 1, 23, 57, 212, 315, 181, 80, 36, 26, 21, 18, 20],3]
 g_view_distribution_params['02958343'] = [[91, 87, 73, 58, 50, 50, 56, 65, 69, 62, 52, 44, 42, 49, 64, 81],[0, 0, 0, 0, 0, 0, 0, 24, 227, 521, 86, 26, 18, 15, 18, 10, 10, 10],3]
 g_view_distribution_params['02691156'] = [[65, 70, 74, 75, 71, 64, 55, 48, 45, 47, 53, 61, 66, 67, 65, 64],[19, 13, 15, 18, 23, 35, 64, 125, 223, 216, 95, 33, 22, 22, 18, 15, 15, 19],10]
+g_view_distribution_params['04379243'] = [[10]*16,[1, 1, 1, 1, 1, 1, 1, 23, 57, 212, 315, 181, 80, 36, 26, 21, 18, 20],3]
+g_view_distribution_params['03636649'] = [[10]*16,[10]*18,10]
 g_syn_light_num_lowbound = 0
 g_syn_light_num_highbound = 4
 g_syn_light_dist_lowbound = 8

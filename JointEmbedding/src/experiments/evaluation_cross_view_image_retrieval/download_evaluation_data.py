@@ -8,6 +8,7 @@ from subprocess import call
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(BASE_DIR)))
 from global_variables import *
+from utilities import query_yes_no
 
 # download and unzip evaluation data
 url = 'https://shapenet.cs.stanford.edu/shapenet_brain/media/app_joint_embedding/evaluation_cross_view_image_retrieval.zip'
