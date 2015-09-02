@@ -8,20 +8,20 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <title>ShapeNet Applications by ShapeNet</title>
+    <title>JointEmbedding by ShapeNet</title>
   </head>
 
   <body>
 
     <header>
       <div class="container">
-        <h1>ShapeNet Applications</h1>
-        <h2>An umbrella repository for research projects of applications powered by ShapeNet.</h2>
+        <h1>JointEmbedding</h1>
+        <h2>Joint Embeddings of Shapes and Images via CNN Image Purification</h2>
 
         <section id="downloads">
-          <a href="https://github.com/ShapeNet/Applications/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/ShapeNet/Applications/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/ShapeNet/Applications" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+          <a href="https://github.com/ShapeNet/JointEmbedding/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/ShapeNet/JointEmbedding/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/ShapeNet/JointEmbedding" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
         </section>
       </div>
     </header>
@@ -29,33 +29,106 @@
     <div class="container">
       <section id="main_content">
         <h1>
-<a id="shapenet-applications" class="anchor" href="#shapenet-applications" aria-hidden="true"><span class="octicon octicon-link"></span></a>ShapeNet Applications</h1>
+<a id="joint-embeddings-of-shapes-and-images-via-cnn-image-purification" class="anchor" href="#joint-embeddings-of-shapes-and-images-via-cnn-image-purification" aria-hidden="true"><span class="octicon octicon-link"></span></a>Joint Embeddings of Shapes and Images via CNN Image Purification</h1>
 
-<p>This is an umbrella repository for research projects of applications powered by <a href="http://shapenet.cs.stanford.edu/" target="_blank">ShapeNet</a>.</p>
+<p>Created by <a href="http://web.stanford.edu/~yangyan/" target="_blank">Yangyan Li</a>, <a href="http://ai.stanford.edu/~haosu/" target="_blank">Hao Su</a>, <a href="http://web.stanford.edu/~rqi/" target="_blank">Charles Ruizhongtai Qi</a>, <a href="http://geometry.stanford.edu/member/guibas/" target="_blank">Leonidas J. Guibas</a> from Stanford University, and <a href="http://www.cs.tau.ac.il/~noafish/" target="_blank">Noa Fish</a>, <a href="http://www.cs.tau.ac.il/~dcor/" target="_blank">Daniel Cohen-Or</a> from Tel Aviv University.</p>
+
+<h3>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction</h3>
+
+<p>We propose a way to embed 3D shapes and 2D images into a joint embedding space, thus all of the 3D shapes and 2D images become searchable from each other (<a href="https://shapenet.cs.stanford.edu/shapenet_brain/app_joint_embedding/" target="_blank">live demo</a>). The <a href="http://geometry.stanford.edu/projects/jointembedding/" target="_blank">research paper</a> was accepted to SIGGRAPH Asia 2015.</p>
 
 <h3>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
 
-<p>Different projects may have different licenses. Please check the LICENSE file CAREFULLY in each project folder.</p>
+<p>JointEmbedding is released under the 4-clause BSD license (the original "BSD License", refer to the LICENSE file for details).</p>
 
 <h3>
-<a id="application-list" class="anchor" href="#application-list" aria-hidden="true"><span class="octicon octicon-link"></span></a>Application List</h3>
+<a id="citing-jointembedding" class="anchor" href="#citing-jointembedding" aria-hidden="true"><span class="octicon octicon-link"></span></a>Citing JointEmbedding</h3>
+
+<p>If you find JointEmbedding useful in your research, please consider citing:</p>
+
+<pre><code>@article{li2015jointembedding,
+    Author = {Li, Yangyan and Su, Hao and Qi, Charles Ruizhongtai and Fish, Noa
+        and Cohen-Or, Daniel and Guibas, Leonidas J.},
+    Title = {Joint Embeddings of Shapes and Images via CNN Image Purification},
+    Journal = {ACM Trans. Graph.},
+    Year = {2015}
+}
+</code></pre>
+
+<h2>
+<a id="contents" class="anchor" href="#contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contents</h2>
+
+<h3>
+<a id="1-usage-how-to-test-with-trained-models" class="anchor" href="#1-usage-how-to-test-with-trained-models" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. Usage: How to test with trained models?</h3>
+
+<p>To be added...</p>
+
+<h3>
+<a id="2-usage-how-to-train-your-own-models" class="anchor" href="#2-usage-how-to-train-your-own-models" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. Usage: How to train your own models?</h3>
 
 <h4>
-<a id="1-viewestimation-render-for-cnn-viewpoint-estimation-in-images-using-cnns-trained-with-rendered-3d-model-views" class="anchor" href="#1-viewestimation-render-for-cnn-viewpoint-estimation-in-images-using-cnns-trained-with-rendered-3d-model-views" aria-hidden="true"><span class="octicon octicon-link"></span></a>1. ViewEstimation: Render for CNN: Viewpoint Estimation in Images Using CNNs Trained with Rendered 3D Model Views</h4>
+<a id="21-requirements-datasets" class="anchor" href="#21-requirements-datasets" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.1. Requirements: datasets</h4>
 
-<p>Created by <a href="http://ai.stanford.edu/~haosu/" target="_blank">Hao Su</a>, <a href="http://web.stanford.edu/~rqi/" target="_blank">Charles Ruizhongtai Qi</a>, <a href="http://web.stanford.edu/~yangyan/" target="_blank">Yangyan Li</a> and <a href="http://geometry.stanford.edu/member/guibas/" target="_blank">Leonidas J. Guibas</a> from Stanford University.</p>
-
-<h4>
-<a id="2-jointembedding-joint-embeddings-of-shapes-and-images-via-cnn-image-purification" class="anchor" href="#2-jointembedding-joint-embeddings-of-shapes-and-images-via-cnn-image-purification" aria-hidden="true"><span class="octicon octicon-link"></span></a>2. JointEmbedding: <a href="http://geometry.stanford.edu/projects/jointembedding/" target="_blank">Joint Embeddings of Shapes and Images via CNN Image Purification</a>
-</h4>
-
-<p>Created by <a href="http://web.stanford.edu/~yangyan/" target="_blank">Yangyan Li</a>, <a href="http://ai.stanford.edu/~haosu/" target="_blank">Hao Su</a>, <a href="http://web.stanford.edu/~rqi/" target="_blank">Charles Ruizhongtai Qi</a>, <a href="http://geometry.stanford.edu/member/guibas/" target="_blank">Leonidas J. Guibas</a> from Stanford University, and <a href="http://www.cs.tau.ac.il/~noafish/" target="_blank">Noa Fish</a>, <a href="http://www.cs.tau.ac.il/~dcor/" target="_blank">Daniel Cohen-Or</a> from Tel Aviv University.</p>
+<ul>
+<li>ShapeNetCore is used for constructing the shape embedding space and generating synthetic images. Visit The <a href="http://shapenet.org/" target="_blank">shapenet.org</a>, and request to download the ShapeNetCore dataset. ShapeNetCore.v1 (also called ShapeNetCore2015Summer) is prefered (there were many broken meshes in ShapeNetCore.v0/ShapeNetCore2015Spring).</li>
+<li>
+<a href="http://groups.csail.mit.edu/vision/SUN/" target="_blank">SUN2012</a> dataset is used for background overlay of the synthetic images. Will be downloaded by our script.</li>
+</ul>
 
 <h4>
-<a id="3-more-and-more" class="anchor" href="#3-more-and-more" aria-hidden="true"><span class="octicon octicon-link"></span></a>3. More and more</h4>
+<a id="22-requirements-software" class="anchor" href="#22-requirements-software" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2. Requirements: software</h4>
 
-<p>Created by the community!</p>
+<ul>
+<li>
+<a href="http://caffe.berkeleyvision.org/" target="\_blank">Caffe</a> is used for deep learning. Install it (including the pycaffe module) by following their instructions. You are required to specify your caffe installation path in <code>global_varialbes.py</code>.</li>
+<li>
+<a href="https://www.blender.org/" target="_blank">Blender</a> is used for rendering shapes into images. Will be downloaded by our script.</li>
+<li>Matlab. You are required to specify matlab executable path in <code>global_varialbes.py</code>.</li>
+<li>
+<a href="https://github.com/pdollar/toolbox" target="_blank">Piotr's Image &amp; Video Matlab Toolbox</a> is used for HoG feature extraction. Will be downloaded by our script.</li>
+</ul>
+
+<h4>
+<a id="23-requirements-hardware" class="anchor" href="#23-requirements-hardware" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3. Requirements: hardware</h4>
+
+<ul>
+<li>Highend GPU(s) are required for the deep learning part.</li>
+<li>You may also need highend CPU(s), as millions of images will be rendered, processed.</li>
+</ul>
+
+<h4>
+<a id="24-installation" class="anchor" href="#24-installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.4. Installation</h4>
+
+<p>The code is written by python, matlab and shell. There is no need for any installation of the code itself. Just:</p>
+
+<pre><code>git clone https://github.com/ShapeNet/Applications.git ShapeNetAppliations;
+cd ShapeNetApplications/JointEmbedding/src;
+cp default_global_variables.py global_variables.py
+</code></pre>
+
+<h4>
+<a id="25-run-the-pipeline" class="anchor" href="#25-run-the-pipeline" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.5. Run the pipeline</h4>
+
+<ol>
+<li>Edit <code>global_variables.py</code>, especially the ones marked by <strong>[take care!]</strong>
+</li>
+<li>Execute <code>run_preparation.sh</code>. It will download some 3rd party software, and prepare shell scripts for next steps.</li>
+<li>Execute <code>run_shape_embedding_training.sh</code> to generate shape embedding space.</li>
+<li>Execute <code>run_image_embedding_training.sh</code> to generate synthetic images.</li>
+<li>Execute <code>run_joint_embedding_training.sh</code> to prepare and start the actual process.</li>
+</ol>
+
+<h5>
+<a id="notes" class="anchor" href="#notes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Notes</h5>
+
+<ol>
+<li>You can run step 3 and 4 in parallel, well, in different machines, since both of them are multi-threaded, and you won't gain much speedup if you run them in parallel in the same machine.</li>
+<li>Step 3, 4, and 5 are also very I/O intensive, try large SSD if you have.</li>
+<li>The <code>run_\*.sh</code> scripts further divided the tasks into smaller tasks. Feed <code>-f first_step -l last_step</code> parameters to the <code>run_\*.sh</code> scripts to run part of them.</li>
+<li>Read the scripts, starting from the <code>run_\*.sh</code>, to get more understanding of the code and build upon it!</li>
+</ol>
       </section>
     </div>
 
