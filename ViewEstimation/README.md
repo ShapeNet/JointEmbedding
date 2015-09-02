@@ -2,7 +2,7 @@
 Created by Hao Su, Charles Ruizhongtai Qi, Yangyan Li and Leonidas J. Guibas from Stanford University.
 
 ### Introduction
-We propose a way to embed 3D shapes and 2D images into a joint embedding space, thus all of the 3D shapes and 2D images become searchable from each other (<a href="https://shapenet.cs.stanford.edu/shapenet_brain/app_joint_embedding/" target="_blank">live demo</a>). The <a href="http://geometry.stanford.edu/projects/jointembedding/" target="_blank">research paper</a> was onditionally accepted to SIGGRAPH Asia 2015.
+We propose a way to generate large amount of overfit-resistant **synthetic** images, for training a CNN that is capable of predicting the camera viewpoint of **real** images. The research paper was accepted to ICCV 2015 (oral).
 
 ### License
 ViewEstimation is released under the 4-clause BSD license (the original "BSD License", refer to the LICENSE file for details).
