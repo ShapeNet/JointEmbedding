@@ -1,5 +1,5 @@
 # Joint Embeddings of Shapes and Images via CNN Image Purification
-Created by Yangyan Li, Hao Su, Charles Ruizhongtai Qi, Leonidas J. Guibas from Stanford University, and Noa Fish, Daniel Cohen-Or from Tel Aviv University.
+Created by <a href="http://web.stanford.edu/~yangyan/" target="_blank">Yangyan Li</a>, <a href="http://ai.stanford.edu/~haosu/" target="_blank">Hao Su</a>, <a href="http://web.stanford.edu/~rqi/" target="_blank">Charles Ruizhongtai Qi</a>, <a href="http://geometry.stanford.edu/member/guibas/" target="_blank">Leonidas J. Guibas</a> from Stanford University, and <a href="http://www.cs.tau.ac.il/~noafish/" target="_blank">Noa Fish</a>, <a href="http://www.cs.tau.ac.il/~dcor/" target="_blank">Daniel Cohen-Or</a> from Tel Aviv University.
 
 ### Introduction
 We propose a way to embed 3D shapes and 2D images into a joint embedding space, thus all of the 3D shapes and 2D images become searchable from each other (<a href="https://shapenet.cs.stanford.edu/shapenet_brain/app_joint_embedding/" target="_blank">live demo</a>). The <a href="http://geometry.stanford.edu/projects/jointembedding/" target="_blank">research paper</a> was accepted to SIGGRAPH Asia 2015.
