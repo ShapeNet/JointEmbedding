@@ -39,8 +39,8 @@ To be added...
 #### 2.4. Installation
 The code is written by python, matlab and shell. There is no need for any installation of the code itself. Just:
 
-    git clone https://github.com/ShapeNet/Applications.git ShapeNetAppliations;
-    cd ShapeNetApplications/JointEmbedding/src;
+    git clone https://github.com/ShapeNet/JointEmbedding.git JointEmbedding;
+    cd JointEmbedding/src;
     cp default_global_variables.py global_variables.py
     
 #### 2.5. Run the pipeline
