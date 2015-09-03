@@ -1,11 +1,4 @@
-function background_overlay(src_folder, dst_folder, bkgFilelist, bkgFolder, clutteredBkgRatio)
-
-t_begin = clock;
-fprintf('Collecting *.png images in \"%s\" folder...', src_folder);
-src_image_list = rdir([src_folder '/**/*.png']);
-image_num = length(src_image_list);
-t_end = clock;
-fprintf('done (%d images, %f seconds)!\n', image_num, etime(t_end, t_begin));
+function background_overlay(src_folder, dst_folder, src_image_list, bkgFilelist, bkgFolder, clutteredBkgRatio)
 
 sunImageList = importdata(bkgFilelist);
 
@@ -16,7 +9,7 @@ report_step = floor((image_num+report_num-1)/report_num);
 t_begin = clock;
 %for i = 1:length(src_image_list)
 parfor i = 1:image_num
-    src_image_file = src_image_list(i).name;
+    src_image_file = src_image_list{i};
     try
         [I, ~, alpha] = imread(src_image_file);       
     catch

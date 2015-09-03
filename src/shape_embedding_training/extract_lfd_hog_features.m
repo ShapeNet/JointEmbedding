@@ -3,7 +3,7 @@ global_variables;
 
 addpath(genpath(g_piotr_toolbox_path));
 
-%% collect all LFD images
+%% Collect LFD images according to shape list
 t_begin = clock;
 fprintf('Collecting LFD images of shapes listed in \"%s\"...', g_shape_list_file);
 view_image_lists = cell(g_lfd_view_num, 1);
@@ -26,11 +26,11 @@ fclose(shape_list_fid);
 t_end = clock;
 fprintf('done (%d shapes, %f seconds)!\n', shape_count, etime(t_end, t_begin));
 
-%% try to get dimension of the HoG feature
+%% Try to get dimension of the HoG feature
 hog_dimension = numel(extract_pyramid_hog(view_image_lists{1, 1}, g_lfd_hog_image_size));
 fprintf('Each shape will be converted into HoG feature of %d dimensions!\n', hog_dimension);
 
-%% compute the HoG feature for the LFD images
+%% Compute the HoG feature for the LFD images
 fprintf('Start LFD HoG feature extraction at time...it takes for a while!!\n', datestr(now, 'HH:MM:SS'));
 local_cluster = parcluster('local');
 poolobj=parpool('local', min(g_lfd_hog_extraction_thread_num, local_cluster.NumWorkers));
@@ -55,7 +55,7 @@ t_end = clock;
 fprintf('%f seconds spent on LFD HoG feature extraction!\n', etime(t_end, t_begin));
 
 
-%% save HoG features
+%% Save HoG features
 t_begin = clock;
 fprintf('Save HoG features to \"%s\"...', g_lfd_hog_features_file);
 lfd_hog_features = cat(2, view_hog_features{:});

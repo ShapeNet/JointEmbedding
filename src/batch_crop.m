@@ -1,11 +1,4 @@
-function batch_crop(src_folder, dst_folder, jitter)
-
-t_begin = clock;
-fprintf('Collecting *.png images in \"%s\" folder...', src_folder);
-src_image_list = rdir([src_folder '/**/*.png']);
-image_num = length(src_image_list);
-t_end = clock;
-fprintf('done (%d images, %f seconds)!\n', image_num, etime(t_end, t_begin));
+function batch_crop(src_folder, dst_folder, jitter, src_image_list)
 
 fprintf('Start croping at time %s...it takes for a while!!\n', datestr(now, 'HH:MM:SS'));
 report_num = 80;
@@ -14,7 +7,7 @@ report_step = floor((image_num+report_num-1)/report_num);
 t_begin = clock;
 %for i = 1:length(src_image_list)
 parfor i = 1:image_num
-    src_image_file = src_image_list(i).name;
+    src_image_file = src_image_list{i};
     try
         [I, ~, alpha] = imread(src_image_file);       
     catch
@@ -41,3 +34,4 @@ parfor i = 1:image_num
 end      
 t_end = clock;
 fprintf('%f seconds spent on cropping!\n', etime(t_end, t_begin));
+end
