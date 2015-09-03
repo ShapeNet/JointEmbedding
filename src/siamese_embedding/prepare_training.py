@@ -66,7 +66,7 @@ with open(g_syn_images_pairs_filelist, 'w') as image_image_pairs_file:
         image_image_pairs_file.write(str(pair[0])+' '+str(pair[1])+' '+str(pair[2])+'\n')
     
 # Prepare train_val.prototxt
-train_val_in = os.path.join(BASE_DIR, 'train_val.prototxt.in')
+train_val_in = os.path.join(BASE_DIR, 'train_val_'+g_network_architecture_name+'.prototxt.in')
 print 'Preparing %s...'%(g_siamese_embedding_train_val_prototxt)
 shutil.copy(train_val_in, g_siamese_embedding_train_val_prototxt)
 for line in fileinput.input(g_siamese_embedding_train_val_prototxt, inplace=True):
@@ -81,7 +81,8 @@ solver_in = os.path.join(BASE_DIR, 'solver.prototxt.in')
 print 'Preparing %s...'%(g_siamese_embedding_solver_prototxt)
 shutil.copy(solver_in, g_siamese_embedding_solver_prototxt)
 for line in fileinput.input(g_siamese_embedding_solver_prototxt, inplace=True):
-    line = line.replace('_suffix', g_shapenet_synset_set_handle)
+    line = line.replace('_NETWORK_ARCHITECTURE_NAME', g_network_architecture_name)
+    line = line.replace('_SUFFIX', g_shapenet_synset_set_handle)
     sys.stdout.write(line)
     
 # Prepare train_val.prototxt

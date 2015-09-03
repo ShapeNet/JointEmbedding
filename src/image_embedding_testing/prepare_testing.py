@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser(description="Stitch pool5 extraction and image 
 parser.add_argument('--iter_num', '-n', help='Use image embedding model trained after iter_num iterations', type=int, default=20000)
 args = parser.parse_args()
 
-image_embedding_testing_in = os.path.join(BASE_DIR, 'image_embedding.prototxt.in')
+image_embedding_testing_in = os.path.join(BASE_DIR, 'image_embedding_'+g_network_architecture_name+'.prototxt.in')
 print 'Preparing %s...'%(g_image_embedding_testing_prototxt)
 shutil.copy(image_embedding_testing_in, g_image_embedding_testing_prototxt)
 for line in fileinput.input(g_image_embedding_testing_prototxt, inplace=True):

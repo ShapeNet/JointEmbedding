@@ -26,9 +26,13 @@ g_matlab_executable_path = os.path.abspath('/usr/local/bin/matlab') # [take care
 g_shapenet_root_folder = os.path.join(g_data_folder, 'ShapeNetCore2015Summer') # [take care!!!], where you put ShapeNet data
 g_sun2012_data_url = 'http://groups.csail.mit.edu/vision/SUN/releases/SUN2012pascalformat.tar.gz'
 
-# We fine tune our model from BLVC_AlexNet
-g_fine_tune_caffemodel_url = 'http://dl.caffe.berkeleyvision.org/bvlc_alexnet.caffemodel'
-g_fine_tune_caffemodel = os.path.join(g_data_folder, 'image_embedding/bvlc_alexnet.caffemodel')
+# We fine tune our model from RCNN model
+g_network_architecture_name = 'rcnn'
+caffemodel_url_handle_dict = dict()
+caffemodel_url_handle_dict['alexnet'] = 'bvlc_alexnet'
+caffemodel_url_handle_dict['rcnn'] = 'bvlc_reference_rcnn_ilsvrc13'
+g_fine_tune_caffemodel_url = 'http://dl.caffe.berkeleyvision.org/'+caffemodel_url_handle_dict[g_network_architecture_name]+'.caffemodel'
+g_fine_tune_caffemodel = os.path.join(g_data_folder, 'image_embedding/'+caffemodel_url_handle_dict[g_network_architecture_name]+'.caffemodel')
 
 g_thread_num = 32 # [take care!!!], try to match with #CPU core
 
@@ -185,11 +189,10 @@ g_syn_images_imageid2shapeid_val = os.path.join(g_data_folder, 'image_embedding/
 g_syn_images_train_val_split = os.path.join(g_data_folder, 'image_embedding/syn_images_train_val_split'+g_shapenet_synset_set_handle+'.txt')
 
 # Pool5 features
-g_pool5_lmdb = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle)
-g_pool5_lmdb_train = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle+'_train')
-g_pool5_lmdb_val = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle+'_val')
-# Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_extract_feat_prototxt accordingly
-g_extract_feat_prototxt = os.path.join(SRC_ROOT, 'image_embedding_training/pool5_feature_extraction.prototxt') #[take care!]
+g_pool5_lmdb = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name)
+g_pool5_lmdb_train = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name+'_train')
+g_pool5_lmdb_val = os.path.join(g_data_folder, 'image_embedding/syn_images_pool5_lmdb'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name+'_val')
+g_extract_feat_prototxt = os.path.join(SRC_ROOT, 'image_embedding_training/pool5_feature_extraction_'+g_network_architecture_name+'.prototxt')
 # Consider change the default parfor worker number in matlab by following the instructions here:
 # http://www.mathworks.com/help/distcomp/saveprofile.html
 g_extract_feat_thread_num = g_thread_num #[take care!], try to match with #CPU core
@@ -200,20 +203,18 @@ g_shape_embedding_lmdb_train = os.path.join(g_data_folder, 'shape_embedding/shap
 g_shape_embedding_lmdb_val = os.path.join(g_data_folder, 'shape_embedding/shape_embedding_lmdb'+g_shapenet_synset_set_handle+'_val')
 
 # Train caffemodel
-g_image_embedding_training_folder = os.path.join(g_data_folder, 'image_embedding/image_embedding_training'+g_shapenet_synset_set_handle)
+g_image_embedding_training_folder = os.path.join(g_data_folder, 'image_embedding/image_embedding_training'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name)
 if not os.path.exists(g_image_embedding_training_folder):
     os.makedirs(g_image_embedding_training_folder)
-# Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_image_embedding_train_val_prototxt accordingly
-g_image_embedding_train_val_prototxt = os.path.join(g_image_embedding_training_folder, 'train_val.prototxt') # [take care!] 
+g_image_embedding_train_val_prototxt = os.path.join(g_image_embedding_training_folder, 'train_val_'+g_network_architecture_name+'.prototxt') 
 g_image_embedding_solver_prototxt = os.path.join(g_image_embedding_training_folder, 'solver.prototxt')
 g_image_embedding_command_sh = os.path.join(g_image_embedding_training_folder, 'run_training.sh')
 
 # Testing
-g_image_embedding_testing_folder = os.path.join(g_data_folder, 'image_embedding/image_embedding_testing'+g_shapenet_synset_set_handle)
+g_image_embedding_testing_folder = os.path.join(g_data_folder, 'image_embedding/image_embedding_testing'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name)
 if not os.path.exists(g_image_embedding_testing_folder):
     os.makedirs(g_image_embedding_testing_folder)
-# Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_image_embedding_testing_prototxt accordingly
-g_image_embedding_testing_prototxt = os.path.join(g_image_embedding_testing_folder, 'image_embedding.prototxt') # [take care!]
+g_image_embedding_testing_prototxt = os.path.join(g_image_embedding_testing_folder, 'image_embedding_'+g_network_architecture_name+'.prototxt')
 
 
 ##############################################################################
@@ -227,21 +228,19 @@ g_syn_images_pairs_filelist_train = os.path.join(g_data_folder, 'siamese_embeddi
 g_syn_images_pairs_filelist_val = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_filelist'+g_shapenet_synset_set_handle+'_val.txt')
 
 g_gen_siamese_lmdb_thread_num = g_thread_num #[take care!], try to match with #CPU core
-g_pairs_pool5_lmdb_train = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_pool5_lmdb'+g_shapenet_synset_set_handle+'_train')
-g_pairs_pool5_lmdb_val = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_pool5_lmdb'+g_shapenet_synset_set_handle+'_val')
+g_pairs_pool5_lmdb_train = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_pool5_lmdb'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name+'_train')
+g_pairs_pool5_lmdb_val = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_pool5_lmdb'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name+'_val')
 
-g_siamese_embedding_training_folder = os.path.join(g_data_folder, 'siamese_embedding/siamese_embedding_training'+g_shapenet_synset_set_handle)
+g_siamese_embedding_training_folder = os.path.join(g_data_folder, 'siamese_embedding/siamese_embedding_training'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name)
 if not os.path.exists(g_siamese_embedding_training_folder):
     os.makedirs(g_siamese_embedding_training_folder)
-# Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_siamese_embedding_train_val_prototxt accordingly
-g_siamese_embedding_train_val_prototxt = os.path.join(g_siamese_embedding_training_folder, 'train_val.prototxt') # [take care!] 
+g_siamese_embedding_train_val_prototxt = os.path.join(g_siamese_embedding_training_folder, 'train_val_'+g_network_architecture_name+'.prototxt') 
 g_siamese_embedding_solver_prototxt = os.path.join(g_siamese_embedding_training_folder, 'solver.prototxt')
 g_siamese_embedding_command_sh = os.path.join(g_siamese_embedding_training_folder, 'run_training.sh')
-g_siamese_embedding_testing_folder = os.path.join(g_data_folder, 'siamese_embedding/siamese_embedding_testing'+g_shapenet_synset_set_handle)
+g_siamese_embedding_testing_folder = os.path.join(g_data_folder, 'siamese_embedding/siamese_embedding_testing'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name)
 if not os.path.exists(g_siamese_embedding_testing_folder):
     os.makedirs(g_siamese_embedding_testing_folder)
-# Based on g_fine_tune_caffemodel. If you want to try a different caffemodel, modify g_siamese_embedding_testing_prototxt accordingly
-g_siamese_embedding_testing_prototxt = os.path.join(g_siamese_embedding_testing_folder, 'siamese_embedding.prototxt') # [take care!]
+g_siamese_embedding_testing_prototxt = os.path.join(g_siamese_embedding_testing_folder, 'siamese_embedding_'+g_network_architecture_name+'.prototxt')
 
 
 ##############################################################################
