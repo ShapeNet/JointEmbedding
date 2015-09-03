@@ -1,8 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import os, sys
-from random import shuffle
+import os
+import sys
+import random
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(BASE_DIR))
@@ -16,7 +17,7 @@ val_num = int(image_num*(1-g_train_ratio))
 train_val_split[0:val_num] = [0]*val_num
 
 random.seed(9527) # seed random with a fixed number
-shuffle(train_val_split)
+random.shuffle(train_val_split)
 
 filelist_train = open(g_syn_images_filelist_train, 'w')
 filelist_val = open(g_syn_images_filelist_val, 'w')
