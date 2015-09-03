@@ -3,6 +3,7 @@ function batch_crop(src_folder, dst_folder, jitter, src_image_list)
 fprintf('Start croping at time %s...it takes for a while!!\n', datestr(now, 'HH:MM:SS'));
 report_num = 80;
 fprintf([repmat('.',1,report_num) '\n\n']);
+image_num = length(src_image_list);
 report_step = floor((image_num+report_num-1)/report_num);
 t_begin = clock;
 %for i = 1:length(src_image_list)

@@ -133,7 +133,7 @@ g_shape_embedding_space_file_txt = os.path.join(g_data_folder, 'shape_embedding/
 # Rendering
 g_blank_blend_file_path = os.path.join(SRC_ROOT, 'blank.blend')
 g_syn_rendering_thread_num = g_thread_num #[take care!], try to match with #CPU core
-g_images_per_synset = 850000
+g_syn_images_per_shape = 125
 g_view_distribution_folder = os.path.join(g_data_folder, 'image_embedding/view_distribution')
 g_view_distribution_files = dict(zip(all_shapenet_synset_set, [os.path.join(g_view_distribution_folder, synset+'.txt') for synset in all_shapenet_synset_set]))
 g_view_distribution_params = dict()

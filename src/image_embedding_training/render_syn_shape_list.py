@@ -31,10 +31,6 @@ if __name__ == '__main__':
         if e[0] not in shape_synset_count:
             shape_synset_count[e[0]] = 0
         shape_synset_count[e[0]] += 1
-    shape_synset_images_per_shape = dict()
-    for synset in shape_synset_count:
-        shape_synset_images_per_shape[synset] = int(g_images_per_synset / shape_synset_count[synset])
-    print('shape_synset_images_per_shape: ', shape_synset_images_per_shape)
 
     # reading view distribution file
     shape_synset_view_params = dict()
@@ -53,14 +49,13 @@ if __name__ == '__main__':
         shape_synset = shape_property[0]
         shape_md5 = shape_property[1]
         shape_file = os.path.join(g_shapenet_root_folder, shape_synset, shape_md5, 'model.obj')
-        images_per_shape = shape_synset_images_per_shape[shape_synset]
         # generate view distribution file
         view_params = shape_synset_view_params[shape_synset]
 
         if not os.path.exists(tmp_dirname):
             os.mkdir(tmp_dirname)
         tmp = tempfile.NamedTemporaryFile(dir=tmp_dirname, delete=False)
-        for i in range(images_per_shape): 
+        for i in range(g_syn_images_per_shape): 
             paramId = random.randint(0, len(view_params)-1)
             tmp_string = '%f %f %f %f\n' % (view_params[paramId][0], view_params[paramId][1], view_params[paramId][2], max(0.01,view_params[paramId][3]))
             tmp.write(bytes(tmp_string, 'UTF-8'))
