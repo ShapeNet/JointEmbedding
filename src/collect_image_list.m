@@ -15,7 +15,7 @@ while ischar(line)
 end
 fclose(shape_list_fid);
 
-image_list = cell(image_count);
+image_list = cell(image_count, 1);
 shape_list_fid = fopen(shape_list_file);
 line = fgetl(shape_list_fid);
 image_count = 0;
