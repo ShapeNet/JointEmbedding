@@ -32,8 +32,8 @@ fi
 
 if [ $last_flag -eq 0 ]
 then
-  echo "-l option is not presented, run the pipeline until last=6!"
-  last=6;
+  echo "-l option is not presented, run the pipeline until last=5!"
+  last=5;
 fi
 
 # Step 01
