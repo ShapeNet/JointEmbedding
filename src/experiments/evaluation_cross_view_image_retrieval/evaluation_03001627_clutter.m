@@ -20,3 +20,5 @@ avg_pr_curve_all = pr_curve_all(end, :) / length(image_list);
 figure(1);
 hold on;
 plot([0.001:0.002:1], avg_pr_curve_all);
+auc = trapz([0.001:0.002:1], avg_pr_curve_all);
+fprintf('AUC: %f\n', auc);
