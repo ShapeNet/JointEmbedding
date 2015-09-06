@@ -5,6 +5,8 @@ import os
 import sys
 import numpy as np
 import argparse
+import scipy.ndimage
+from google.protobuf import text_format
 
 #https://github.com/BVLC/caffe/issues/861#issuecomment-70124809
 import matplotlib 
@@ -24,6 +26,7 @@ args = parser.parse_args()
 
 sys.path.append(os.path.join(g_caffe_install_path, 'python'))
 import caffe
+from caffe.proto import caffe_pb2
 
 caffemodel = os.path.join(g_siamese_embedding_testing_folder, 'snapshots%s_iter_%d.caffemodel'%(g_shapenet_synset_set_handle, args.iter_num))
 prototxt = g_siamese_embedding_testing_prototxt
@@ -32,6 +35,13 @@ if args.caffemodel:
     caffemodel = args.caffemodel
 if args.prototxt:
     prototxt = args.prototxt
+    
+imagenet_mean = np.load(args.mean_file)
+net_parameter = caffe_pb2.NetParameter()
+text_format.Merge(open(prototxt, 'r').read(), net_parameter)
+input_shape = net_parameter.input_shape[0].dim
+ratio = input_shape[2]*1.0/imagenet_mean.shape[1]
+imagenet_mean = scipy.ndimage.zoom(imagenet_mean, (1, ratio, ratio))
 
 # INIT NETWORK
 caffe.set_mode_gpu()
@@ -39,7 +49,7 @@ caffe.set_device(args.gpu_index)
 net = caffe.Classifier(prototxt,
                        caffemodel,
                        #mean=np.array([104, 117, 123]),
-                       mean=np.load(g_mean_file),
+                       mean=imagenet_mean,
                        raw_scale=255,
                        channel_swap=(2, 1, 0))
 

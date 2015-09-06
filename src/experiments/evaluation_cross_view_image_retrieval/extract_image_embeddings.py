@@ -8,6 +8,7 @@ import argparse
 import datetime
 import fileinput
 import numpy as np
+import scipy.ndimage
 from google.protobuf import text_format
 
 #https://github.com/BVLC/caffe/issues/861#issuecomment-70124809
@@ -56,13 +57,17 @@ text_format.Merge(open(prototxt, 'r').read(), net_parameter)
 input_shape = net_parameter.input_shape[0].dim
 batch_size = input_shape[0]
 
+imagenet_mean = np.load(args.mean_file)
+ratio = input_shape[2]*1.0/imagenet_mean.shape[1]
+imagenet_mean = scipy.ndimage.zoom(imagenet_mean, (1, ratio, ratio))
+
 # INIT NETWORK
 caffe.set_mode_gpu()
 caffe.set_device(args.gpu_index)
 net = caffe.Classifier(prototxt,
                        caffemodel,
                        #mean=np.array([104, 117, 123]),
-                       mean=np.load(g_mean_file),
+                       mean=imagenet_mean,
                        raw_scale=255,
                        channel_swap=(2, 1, 0))
 
