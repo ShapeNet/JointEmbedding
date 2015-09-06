@@ -32,14 +32,14 @@ with env.begin() as txn:
     for key, value in cursor:
         key_idx = '{:0>10d}'.format(idx)
         assert(key == key_idx)
-        if train_val_split[idx]:
+        if train_val_split[idx] == 1:
             cache_train[key] = value
             if (len(cache_train) == txn_commit_count or idx == len(train_val_split)-1):
                 with env_train.begin(write=True) as txn_train:
                     for k, v in sorted(cache_train.iteritems()):
                         txn_train.put(k, v)
                 cache_train.clear()
-        else:
+        else if train_val_split[idx] == 0:
             cache_val[key] = value
             if (len(cache_val) == txn_commit_count or idx == len(train_val_split)-1):
                 with env_val.begin(write=True) as txn_val:

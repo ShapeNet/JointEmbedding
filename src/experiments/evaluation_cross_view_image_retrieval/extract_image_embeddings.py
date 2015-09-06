@@ -30,10 +30,7 @@ sys.path.append(os.path.join(g_caffe_install_path, 'python'))
 import caffe
 from caffe.proto import caffe_pb2
 
-dataset_handle = '_'+args.dataset.split('_')[0]
-if len(experiment_name) != 0:
-    dataset_handle = dataset_handle + '_' + experiment_name;
-    
+dataset_handle = '_'+args.dataset.split('_')[0]   
 caffemodel = os.path.join(g_image_embedding_testing_folder, 'snapshots%s_iter_%d.caffemodel'%(dataset_handle, args.iter_num))
 prototxt = g_image_embedding_testing_prototxt
 

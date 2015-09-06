@@ -68,10 +68,14 @@ g_shapenet_synset_set = ['03001627'] # chair
 
 # Suffix generated intermediate result with the synset_set
 g_shapenet_synset_set_handle = '_'+'_'.join(g_shapenet_synset_set)
-# This is for putting intermediate results of different experiment into different folder/file.
-experiment_name = ''
-if len(experiment_name) != 0:
-    g_shapenet_synset_set_handle = g_shapenet_synset_set_handle + '_' + experiment_name;
+
+# This is for creating a "mirror" dataset for various experiments.
+# For example, exclude some shapes in the training...
+g_mirror_mode = False
+g_mirror_name = 'mirror_no_identical'
+if len(g_mirror_mode) != 0:
+    g_shapenet_synset_set_handle = g_shapenet_synset_set_handle + '_' + g_mirror_name;
+    
 g_shape_list_file = os.path.join(g_data_folder, 'shape_list'+g_shapenet_synset_set_handle+'.txt')
 
 
