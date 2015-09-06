@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser(description="Stitch pool5 extraction and siames
 parser.add_argument('--iter_num', '-n', help='Use siamese embedding model trained after iter_num iterations', type=int, default=20000)
 args = parser.parse_args()
 
-siamese_embedding_testing_in = os.path.join(BASE_DIR, 'siamese_embedding.prototxt.in')
+siamese_embedding_testing_in = os.path.join(BASE_DIR, 'siamese_embedding_'+g_network_architecture_name+'.prototxt.in')
 print 'Preparing %s...'%(g_siamese_embedding_testing_prototxt)
 shutil.copy(siamese_embedding_testing_in, g_siamese_embedding_testing_prototxt)
 for line in fileinput.input(g_siamese_embedding_testing_prototxt, inplace=True):

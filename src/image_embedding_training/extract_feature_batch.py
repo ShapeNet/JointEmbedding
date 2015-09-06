@@ -39,9 +39,8 @@ imagenet_mean = np.array([104, 117, 123])
 if args.mean_file:
     imagenet_mean = np.load(args.mean_file)
     net_parameter = caffe_pb2.NetParameter()
-    text_format.Merge(open(prototxt, 'r').read(), net_parameter)
-    input_shape = net_parameter.input_shape[0].dim
-    ratio = input_shape[2]*1.0/imagenet_mean.shape[1]
+    text_format.Merge(open(args.prototxt, 'r').read(), net_parameter)
+    ratio = net_parameter.input_dim[2]*1.0/imagenet_mean.shape[1]
     imagenet_mean = scipy.ndimage.zoom(imagenet_mean, (1, ratio, ratio))
 
 # INIT NETWORK
