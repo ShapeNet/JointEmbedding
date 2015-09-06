@@ -1,6 +1,6 @@
 name: "RCNN"
 input: "data"
-input_dim: 256
+input_dim: 768
 input_dim: 3
 input_dim: 227
 input_dim: 227

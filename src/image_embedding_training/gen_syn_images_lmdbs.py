@@ -39,7 +39,7 @@ with env.begin() as txn:
                     for k, v in sorted(cache_train.iteritems()):
                         txn_train.put(k, v)
                 cache_train.clear()
-        else if train_val_split[idx] == 0:
+        elif train_val_split[idx] == 0:
             cache_val[key] = value
             if (len(cache_val) == txn_commit_count or idx == len(train_val_split)-1):
                 with env_val.begin(write=True) as txn_val:
