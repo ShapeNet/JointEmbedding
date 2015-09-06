@@ -25,17 +25,22 @@ parser.add_argument('--feat_name', help='Feature name. e.g. fc7', required=True)
 parser.add_argument('--lmdb', help='LMDB for saving the features.', required=True)
 parser.add_argument('--gpu_index', help='GPU index (default=0).', type=int, default=0)
 parser.add_argument('--pool_size', help='Pool size', type=int, default=8)
+parser.add_argument('--mean_file', help='ImageNet mean file', required=False)
 args = parser.parse_args()
 
 if args.caffe_path:
     sys.path.append(os.path.join(args.caffe_path, 'python'))
 import caffe
 
+imagenet_mean = np.array([104, 117, 123])
+if args.mean_file:
+    imagenet_mean = np.load(args.mean_file)
+
 # INIT NETWORK
 caffe.set_mode_gpu()
 caffe.set_device(args.gpu_index)
 net = caffe.Classifier(args.prototxt,args.caffemodel,
-    mean=np.array([104, 117, 123]),
+    mean=imagenet_mean,
     raw_scale=255,
     channel_swap=(2, 1, 0))
 

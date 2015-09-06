@@ -38,7 +38,8 @@ caffe.set_mode_gpu()
 caffe.set_device(args.gpu_index)
 net = caffe.Classifier(prototxt,
                        caffemodel,
-                       mean=np.array([104, 117, 123]),
+                       #mean=np.array([104, 117, 123]),
+                       mean=np.load(g_mean_file),
                        raw_scale=255,
                        channel_swap=(2, 1, 0))
 

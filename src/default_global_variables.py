@@ -33,6 +33,7 @@ caffemodel_url_handle_dict['alexnet'] = 'bvlc_alexnet'
 caffemodel_url_handle_dict['rcnn'] = 'bvlc_reference_rcnn_ilsvrc13'
 g_fine_tune_caffemodel_url = 'http://dl.caffe.berkeleyvision.org/'+caffemodel_url_handle_dict[g_network_architecture_name]+'.caffemodel'
 g_fine_tune_caffemodel = os.path.join(g_data_folder, 'image_embedding/'+caffemodel_url_handle_dict[g_network_architecture_name]+'.caffemodel')
+g_mean_file = os.path.join(SRC_ROOT, 'ilsvrc_2012_mean.npy')
 
 g_thread_num = 32 # [take care!!!], try to match with #CPU core
 
