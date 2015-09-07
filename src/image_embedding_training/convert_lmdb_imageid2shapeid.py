@@ -9,6 +9,10 @@ import datetime
 import argparse
 from multiprocessing import Pool
 
+#https://github.com/BVLC/caffe/issues/861#issuecomment-70124809
+import matplotlib 
+matplotlib.use('Agg')
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(BASE_DIR))
 from global_variables import *
