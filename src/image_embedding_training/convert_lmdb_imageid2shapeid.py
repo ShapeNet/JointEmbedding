@@ -3,6 +3,9 @@
 
 import os
 import sys
+import lmdb
+import shutil
+import datetime
 from multiprocessing import Pool
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -44,7 +47,7 @@ report_step = 10000;
 idx = 0
 cache_key_output = []
 cache_value_input = []
-with env.begin() as txn:
+with env_input.begin() as txn:
     cursor = txn.cursor()
     for key, value in cursor:
         key_output = '{:0>10d}'.format(idx)
@@ -57,7 +60,7 @@ with env.begin() as txn:
                 for idx in range(len(cache_key_output)):
                     txn_output.put(cache_key_output[idx], cache_value_output[idx])
             del cache_key_output[:]
-            del cahce_value_input[:]
+            del cache_value_input[:]
             
         if(idx%report_step == 0):
             print datetime.datetime.now().time(), '-', idx, 'of', len(imageid2shapeid_mapping), 'processed!'

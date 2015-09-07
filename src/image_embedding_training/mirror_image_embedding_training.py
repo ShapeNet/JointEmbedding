@@ -3,6 +3,9 @@
 
 import os
 import sys
+import lmdb
+import shutil
+import datetime
 from multiprocessing import Pool
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -59,12 +62,14 @@ imageid2shapeid_mirror_train_file = open(imageid2shapeid_mirror_train, 'w')
 imageid2shapeid_mirror_val_file = open(imageid2shapeid_mirror_val, 'w')
 train_val_split_mirror_file = open(train_val_split_mirror, 'w')
 
+imageid2shapeid_mirror = []
 for idx, shapeid_original in enumerate(imageid2shapeid_original):
     if shape_list_mirror_mapping[shapeid_original]:
         filelist_mirror_file.write(filelist_original[idx]+'\n')
         shapeid_mirror = shapeid_mapping[shapeid_original]
         assert(shapeid_mirror != -1)
         imageid2shapeid_mirror_file.write(str(shapeid_mirror)+'\n')
+        imageid2shapeid_mirror.append(shapeid_mirror)
         train_val = train_val_split_original[idx]
         train_val_split_mirror_file.write(str(int(train_val))+'\n')
         if train_val:
@@ -92,7 +97,6 @@ for idx, shapeid_original in enumerate(imageid2shapeid_original):
         imageid_mapping.append(-1)
         
 def map_global_idx(datum_string, def_param=imageid_mapping):
-    assert(imageid_mirror != -1)
     datum = caffe_pb2.Datum()
     datum.ParseFromString(datum_string)
     datum.label = imageid_mapping[datum.label]
@@ -106,8 +110,7 @@ pool5_lmdb_mirror = os.path.join(g_data_folder, 'image_embedding/syn_images_pool
 if os.path.exists(pool5_lmdb_mirror):
     shutil.rmtree(pool5_lmdb_mirror)
 env_mirror = lmdb.open(pool5_lmdb_mirror, map_size=int(1e12))
-
-imageid2shapeid_mirror = [int(line.strip()) for line in open(imageid2shapeid_mirror_file, 'r')]
+print 'Writing lmdb to %s...'%(pool5_lmdb_mirror)
 
 txn_commit_count = 512
 report_step = 10000;
@@ -115,10 +118,10 @@ idx_original = 0
 idx_mirror = 0
 cache_key_mirror = []
 cache_value_original = []
-with env.begin() as txn:
+with env_original.begin() as txn:
     cursor = txn.cursor()
     for key, value in cursor:
-        if shape_list_mirror_mapping(imageid2shapeid_original[idx_original]):
+        if shape_list_mirror_mapping[imageid2shapeid_original[idx_original]]:
             key_mirror = '{:0>10d}'.format(idx_mirror)
             cache_key_mirror.append(key_mirror)
             cache_value_original.append(value)
@@ -128,7 +131,7 @@ with env.begin() as txn:
                     for idx in range(len(cache_key_mirror)):
                         txn_mirror.put(cache_key_mirror[idx], cache_value_mirror[idx])
                 del cache_key_mirror[:]
-                del cahce_value_original[:]
+                del cache_value_original[:]
                 
             if(idx_mirror%report_step == 0):
                 print datetime.datetime.now().time(), '-', idx_mirror, 'of', len(imageid2shapeid_mirror), 'processed!'

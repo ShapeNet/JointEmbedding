@@ -34,6 +34,7 @@ with open(shape_list_mirror_mapping_filename, 'w') as shape_list_mirror_mapping_
         else:
             shape_list_mirror_mapping_file.write('0\n')
             
+print 'Remember to toggle on \'g_mirror_mode\' in global_variables.py and play in mirror mode!'
+
 call(['python', os.path.join(BASE_DIR, 'image_embedding_training/mirror_image_embedding_training.py')])
 
-print 'Read to toggle on \'g_mirror_mode\' in global_variables.py and play in mirror mode!'

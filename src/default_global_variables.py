@@ -226,23 +226,24 @@ g_image_embedding_testing_prototxt = os.path.join(g_image_embedding_testing_fold
 # Siamese embedding (for comparison to our approach)
 ##############################################################################
 g_siamese_pair_top_k = 64
+top_k_handle = '_top_'+str(g_siamese_pair_top_k)
 g_siamese_pairs_num = 8000000
-g_syn_images_pairs_filelist = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_filelist'+g_shapenet_synset_set_handle+'.txt')
-g_syn_images_pairs_train_val_split = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_train_val_split'+g_shapenet_synset_set_handle+'.txt')
-g_syn_images_pairs_filelist_train = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_filelist'+g_shapenet_synset_set_handle+'_train.txt')
-g_syn_images_pairs_filelist_val = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_filelist'+g_shapenet_synset_set_handle+'_val.txt')
+g_syn_images_pairs_filelist = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_filelist'+g_shapenet_synset_set_handle+top_k_handle+'.txt')
+g_syn_images_pairs_train_val_split = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_train_val_split'+g_shapenet_synset_set_handle+top_k_handle+'.txt')
+g_syn_images_pairs_filelist_train = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_filelist'+g_shapenet_synset_set_handle+top_k_handle+'_train.txt')
+g_syn_images_pairs_filelist_val = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_filelist'+g_shapenet_synset_set_handle+top_k_handle+'_val.txt')
 
 g_gen_siamese_lmdb_thread_num = g_thread_num #[take care!], try to match with #CPU core
-g_pairs_pool5_lmdb_train = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_pool5_lmdb'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name+'_train')
-g_pairs_pool5_lmdb_val = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_pool5_lmdb'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name+'_val')
+g_pairs_pool5_lmdb_train = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_pool5_lmdb'+g_shapenet_synset_set_handle+top_k_handle+'_'+g_network_architecture_name+'_train')
+g_pairs_pool5_lmdb_val = os.path.join(g_data_folder, 'siamese_embedding/syn_images_pairs_pool5_lmdb'+g_shapenet_synset_set_handle+top_k_handle+'_'+g_network_architecture_name+'_val')
 
-g_siamese_embedding_training_folder = os.path.join(g_data_folder, 'siamese_embedding/siamese_embedding_training'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name)
+g_siamese_embedding_training_folder = os.path.join(g_data_folder, 'siamese_embedding/siamese_embedding_training'+g_shapenet_synset_set_handle+top_k_handle+'_'+g_network_architecture_name)
 if not os.path.exists(g_siamese_embedding_training_folder):
     os.makedirs(g_siamese_embedding_training_folder)
 g_siamese_embedding_train_val_prototxt = os.path.join(g_siamese_embedding_training_folder, 'train_val_'+g_network_architecture_name+'.prototxt') 
 g_siamese_embedding_solver_prototxt = os.path.join(g_siamese_embedding_training_folder, 'solver.prototxt')
 g_siamese_embedding_command_sh = os.path.join(g_siamese_embedding_training_folder, 'run_training.sh')
-g_siamese_embedding_testing_folder = os.path.join(g_data_folder, 'siamese_embedding/siamese_embedding_testing'+g_shapenet_synset_set_handle+'_'+g_network_architecture_name)
+g_siamese_embedding_testing_folder = os.path.join(g_data_folder, 'siamese_embedding/siamese_embedding_testing'+g_shapenet_synset_set_handle+top_k_handle+'_'+g_network_architecture_name)
 if not os.path.exists(g_siamese_embedding_testing_folder):
     os.makedirs(g_siamese_embedding_testing_folder)
 g_siamese_embedding_testing_prototxt = os.path.join(g_siamese_embedding_testing_folder, 'siamese_embedding_'+g_network_architecture_name+'.prototxt')
