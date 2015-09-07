@@ -57,7 +57,7 @@ text_format.Merge(open(prototxt, 'r').read(), net_parameter)
 input_shape = net_parameter.input_shape[0].dim
 batch_size = input_shape[0]
 
-imagenet_mean = np.load(args.mean_file)
+imagenet_mean = np.load(g_mean_file)
 ratio = input_shape[2]*1.0/imagenet_mean.shape[1]
 imagenet_mean = scipy.ndimage.zoom(imagenet_mean, (1, ratio, ratio))
 

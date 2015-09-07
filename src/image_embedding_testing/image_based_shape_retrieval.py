@@ -39,7 +39,7 @@ if args.caffemodel:
 if args.prototxt:
     prototxt = args.prototxt
     
-imagenet_mean = np.load(args.mean_file)
+imagenet_mean = np.load(g_mean_file)
 net_parameter = caffe_pb2.NetParameter()
 text_format.Merge(open(prototxt, 'r').read(), net_parameter)
 input_shape = net_parameter.input_shape[0].dim
