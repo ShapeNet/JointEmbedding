@@ -73,8 +73,8 @@ g_shapenet_synset_set_handle = '_'+'_'.join(g_shapenet_synset_set)
 # This is for creating a "mirror" dataset for various experiments.
 # For example, exclude some shapes in the training...
 g_mirror_mode = False
-g_mirror_name = 'mirror_no_identical'
-if len(g_mirror_mode) != 0:
+g_mirror_name = 'no_exact_match'
+if g_mirror_mode:
     g_shapenet_synset_set_handle = g_shapenet_synset_set_handle + '_' + g_mirror_name;
     
 g_shape_list_file = os.path.join(g_data_folder, 'shape_list'+g_shapenet_synset_set_handle+'.txt')
