@@ -81,7 +81,7 @@ solver_in = os.path.join(BASE_DIR, 'solver.prototxt.in')
 print 'Preparing %s...'%(g_siamese_embedding_solver_prototxt)
 shutil.copy(solver_in, g_siamese_embedding_solver_prototxt)
 for line in fileinput.input(g_siamese_embedding_solver_prototxt, inplace=True):
-    line = line.replace('_NETWORK_ARCHITECTURE_NAME', g_network_architecture_name)
+    line = line.replace('NETWORK_ARCHITECTURE_NAME', g_network_architecture_name)
     line = line.replace('_SUFFIX', g_shapenet_synset_set_handle)
     sys.stdout.write(line)
     
