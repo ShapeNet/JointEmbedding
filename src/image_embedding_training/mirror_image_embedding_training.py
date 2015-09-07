@@ -34,7 +34,7 @@ train_val_split_mirror = os.path.join(g_data_folder, 'image_embedding/syn_images
 
 shape_list_mirror_mapping_filename = os.path.join(g_data_folder, 'shape_list_mapping'+shapenet_synset_set_handle_mirror+'.txt')
 print 'Loading shape list mapping from %s...'%(shape_list_mirror_mapping_filename)
-shape_list_mirror_mapping = [bool(line.strip()) for line in open(shape_list_mirror_mapping_filename, 'r')]
+shape_list_mirror_mapping = [bool(int(line.strip())) for line in open(shape_list_mirror_mapping_filename, 'r')]
 shapeid_mapping = []
 shape_count = 0
 for item in shape_list_mirror_mapping:
