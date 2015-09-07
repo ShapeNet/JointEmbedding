@@ -37,4 +37,8 @@ global_variables_m_file.write('g_syn_images_bkg_overlaid_folder = \'%s\';\n' %(g
 global_variables_m_file.write('g_syn_bkg_filelist = \'%s\';\n' %(g_syn_bkg_filelist))
 global_variables_m_file.write('g_syn_bkg_folder = \'%s\';\n' %(g_syn_bkg_folder))
 global_variables_m_file.write('g_syn_cluttered_bkg_ratio = %f;\n' %(g_syn_cluttered_bkg_ratio))
+
+global_variables_m_file.write('g_data_folder = \'%s\';\n' %(g_data_folder))
+global_variables_m_file.write('g_shapenet_synset_set_handle = \'%s\';\n' %(g_shapenet_synset_set_handle))
+global_variables_m_file.write('g_mirror_name = \'%s\';\n' %(g_mirror_name))
 global_variables_m_file.close();
