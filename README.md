@@ -55,3 +55,6 @@ The code is written by python, matlab and shell. There is no need for any instal
 2. Step 3, 4, and 5 are also very I/O intensive, try large SSD if you have.
 3. The `run_\*.sh` scripts further divided the tasks into smaller tasks. Feed `-f first_step -l last_step` parameters to the `run_\*.sh` scripts to run part of them.
 3. Read the scripts, starting from the `run_\*.sh`, to get more understanding of the code and build upon it!
+
+### 3. Questions?
+Refer to [Frequently Asked Questions](https://github.com/ShapeNet/JointEmbedding/wiki/Frequently-Asked-Questions) first.
