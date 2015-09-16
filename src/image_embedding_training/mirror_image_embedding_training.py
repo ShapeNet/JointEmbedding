@@ -125,15 +125,16 @@ with env_original.begin() as txn:
             key_mirror = '{:0>10d}'.format(idx_mirror)
             cache_key_mirror.append(key_mirror)
             cache_value_original.append(value)
-            if (len(cache_key_mirror) == txn_commit_count or idx_original == len(imageid2shapeid_original)-1):
-                cache_value_mirror = pool.map(map_global_idx, cache_value_original)
-                with env_mirror.begin(write=True) as txn_mirror:
-                    for idx in range(len(cache_key_mirror)):
-                        txn_mirror.put(cache_key_mirror[idx], cache_value_mirror[idx])
-                del cache_key_mirror[:]
-                del cache_value_original[:]
-                
             if(idx_mirror%report_step == 0):
                 print datetime.datetime.now().time(), '-', idx_mirror, 'of', len(imageid2shapeid_mirror), 'processed!'
             idx_mirror = idx_mirror + 1
+            
+        if (len(cache_key_mirror) == txn_commit_count or idx_original == len(imageid2shapeid_original)-1):
+            cache_value_mirror = pool.map(map_global_idx, cache_value_original)
+            with env_mirror.begin(write=True) as txn_mirror:
+                for idx in range(len(cache_key_mirror)):
+                    txn_mirror.put(cache_key_mirror[idx], cache_value_mirror[idx])
+            del cache_key_mirror[:]
+            del cache_value_original[:]
+            
         idx_original = idx_original + 1

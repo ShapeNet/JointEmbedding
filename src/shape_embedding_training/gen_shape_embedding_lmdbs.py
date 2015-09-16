@@ -43,18 +43,20 @@ for idx, train_val in enumerate(train_val_split):
     value = embedding_space_strings[imageid2shapeid[idx]]
     if train_val == 1:
         cache_train[key] = value
-        if (len(cache_train) == txn_commit_count or idx == len(train_val_split)-1):
-            with env_train.begin(write=True) as txn_train:
-                for k, v in sorted(cache_train.iteritems()):
-                    txn_train.put(k, v)
-            cache_train.clear()
     elif train_val == 0:
         cache_val[key] = value
-        if (len(cache_val) == txn_commit_count or idx == len(train_val_split)-1):
-            with env_val.begin(write=True) as txn_val:
-                for k, v in sorted(cache_val.iteritems()):
-                    txn_val.put(k, v)
-            cache_val.clear()
+        
+    if (len(cache_train) == txn_commit_count or idx == len(train_val_split)-1):
+        with env_train.begin(write=True) as txn_train:
+            for k, v in sorted(cache_train.iteritems()):
+                txn_train.put(k, v)
+        cache_train.clear()
+    if (len(cache_val) == txn_commit_count or idx == len(train_val_split)-1):
+        with env_val.begin(write=True) as txn_val:
+            for k, v in sorted(cache_val.iteritems()):
+                txn_val.put(k, v)
+        cache_val.clear()
+        
     if(idx%report_step == 0):
         print datetime.datetime.now().time(), '-', idx, 'of', len(train_val_split), 'processed!'
         
