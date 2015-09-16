@@ -8,6 +8,7 @@ import argparse
 import datetime
 import fileinput
 import numpy as np
+import skimage.color
 import scipy.ndimage
 from google.protobuf import text_format
 
@@ -79,7 +80,10 @@ data_folder = os.path.join(evaluation_folder, 'images_'+args.dataset)
 image_embedding_filename = os.path.join(evaluation_folder, 'image_embeddings_'+args.dataset+'.txt')
 with open(image_embedding_filename, 'w') as image_embedding_file:
     for idx, filename in enumerate(filelist):
-        input_data[idx%batch_size] = caffe.io.load_image(os.path.join(data_folder, filename))
+        im = caffe.io.load_image(os.path.join(data_folder, filename))
+        im = skimage.color.rgb2gray(im)
+        im = skimage.color.gray2rgb(im)
+        input_data[idx%batch_size] = im
         if idx%batch_size == batch_size -1 or idx == len(filelist)-1:
             net.predict(input_data, oversample=False)
             image_embedding_blobproto = net.blobs['image_embedding']
