@@ -8,7 +8,6 @@ import argparse
 import datetime
 import fileinput
 import numpy as np
-import skimage.color
 import scipy.ndimage
 from google.protobuf import text_format
 
