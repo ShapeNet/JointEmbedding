@@ -5,7 +5,6 @@ import os
 import sys
 import numpy as np
 import argparse
-import skimage.color
 import scipy.ndimage
 from google.protobuf import text_format
 
@@ -56,8 +55,6 @@ net = caffe.Classifier(prototxt,
 
 input_data = []
 im = caffe.io.load_image(args.image)
-im = skimage.color.rgb2gray(im)
-im = skimage.color.gray2rgb(im)
 input_data.append(im)
 
 net.predict(input_data, oversample=False)

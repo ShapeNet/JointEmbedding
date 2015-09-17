@@ -81,8 +81,6 @@ image_embedding_filename = os.path.join(evaluation_folder, 'image_embeddings_'+a
 with open(image_embedding_filename, 'w') as image_embedding_file:
     for idx, filename in enumerate(filelist):
         im = caffe.io.load_image(os.path.join(data_folder, filename))
-        im = skimage.color.rgb2gray(im)
-        im = skimage.color.gray2rgb(im)
         input_data[idx%batch_size] = im
         if idx%batch_size == batch_size -1 or idx == len(filelist)-1:
             net.predict(input_data, oversample=False)

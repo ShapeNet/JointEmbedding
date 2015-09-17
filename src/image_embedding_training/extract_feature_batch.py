@@ -9,7 +9,6 @@ import shutil
 import datetime
 import argparse
 import numpy as np
-import skimage.color
 import scipy.ndimage
 from multiprocessing import Pool
 from google.protobuf import text_format
@@ -81,8 +80,6 @@ for batch_idx in range(batch_num):
     input_data = []
     for img_idx in range(start_idx, end_idx):
         im = caffe.io.load_image(img_filenames[img_idx])
-        im = skimage.color.rgb2gray(im) 
-        im = skimage.color.gray2rgb(im)
         input_data.append(im)
 
     net.predict(input_data, oversample=False)
