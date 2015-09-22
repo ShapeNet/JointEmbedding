@@ -1,4 +1,4 @@
-function [I, top, bottom, left, right] = crop_gray(I, bg_color, jitter)
+function [I, top, bottom, left, right] = crop_gray(I, bg_color, jitter, cropRatios)
 [nr, nc] = size(I);
 col_sum = sum(I == bg_color, 1) ~= nr;
 row_sum = sum(I == bg_color, 2) ~= nc;
@@ -27,7 +27,9 @@ if jitter == 0
 end
 
 % ---- JITTER THE CROP -----
-cropRatios = ones(1,4)*0.05;
+if nargin < 4
+    cropRatios = ones(1,4)*0.05;
+end
 
 width = right - left + 1;
 height = bottom - top + 1;
