@@ -14,8 +14,9 @@ parfor i = 1:image_num
     catch
         fprintf('Failed to read %s\n', src_image_file);
     end
-
-    [alpha, top, bottom, left, right] = crop_gray(alpha, 0, jitter);      
+    
+    cropRatios = [0.05,0.3,0.05,0.05]; % set cropping ratios for top,bottom,left,right
+    [alpha, top, bottom, left, right] = crop_gray(alpha, 0, jitter, cropRatios);      
     I = I(top:bottom, left:right, :);
 
     if numel(I) == 0
