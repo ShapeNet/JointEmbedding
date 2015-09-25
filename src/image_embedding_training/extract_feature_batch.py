@@ -9,7 +9,6 @@ import shutil
 import datetime
 import argparse
 import numpy as np
-import scipy.ndimage
 from multiprocessing import Pool
 from google.protobuf import text_format
 
@@ -40,8 +39,7 @@ if args.mean_file:
     imagenet_mean = np.load(args.mean_file)
     net_parameter = caffe_pb2.NetParameter()
     text_format.Merge(open(args.prototxt, 'r').read(), net_parameter)
-    ratio = net_parameter.input_dim[2]*1.0/imagenet_mean.shape[1]
-    imagenet_mean = scipy.ndimage.zoom(imagenet_mean, (1, ratio, ratio))
+    imagenet_mean = caffe.io.resize_image(imagenet_mean.transpose((1, 2, 0)), net_parameter.input_dim[2:]).transpose((2, 0, 1))
 
 # INIT NETWORK
 caffe.set_mode_gpu()
@@ -82,9 +80,8 @@ for batch_idx in range(batch_num):
         im = caffe.io.load_image(img_filenames[img_idx])
         input_data.append(im)
 
-    net.predict(input_data, oversample=False)
-    feats_blobproto = net.blobs[args.feat_name]
-    feats_array = caffe.io.blobproto_to_array(feats_blobproto)
+    output_array = net.predict(input_data, oversample=False)
+    feats_array = net.blobs[args.feat_name].data
     array4d_idx = [(feats_array, idx, idx+start_idx) for idx in range(end_idx-start_idx)]
     datum_strings = pool.map(array4d_idx_to_datum_string, array4d_idx)
     with env.begin(write=True) as txn:

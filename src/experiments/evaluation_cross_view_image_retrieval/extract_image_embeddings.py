@@ -8,7 +8,6 @@ import argparse
 import datetime
 import fileinput
 import numpy as np
-import scipy.ndimage
 from google.protobuf import text_format
 
 #https://github.com/BVLC/caffe/issues/861#issuecomment-70124809
@@ -58,8 +57,7 @@ input_shape = net_parameter.input_shape[0].dim
 batch_size = input_shape[0]
 
 imagenet_mean = np.load(g_mean_file)
-ratio = input_shape[2]*1.0/imagenet_mean.shape[1]
-imagenet_mean = scipy.ndimage.zoom(imagenet_mean, (1, ratio, ratio))
+imagenet_mean = caffe.io.resize_image(imagenet_mean.transpose((1, 2, 0)), input_shape[2:]).transpose((2, 0, 1))
 
 # INIT NETWORK
 caffe.set_mode_gpu()

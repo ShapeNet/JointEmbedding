@@ -5,7 +5,6 @@ import os
 import sys
 import numpy as np
 import argparse
-import scipy.ndimage
 from google.protobuf import text_format
 
 #https://github.com/BVLC/caffe/issues/861#issuecomment-70124809
@@ -41,7 +40,7 @@ net_parameter = caffe_pb2.NetParameter()
 text_format.Merge(open(prototxt, 'r').read(), net_parameter)
 input_shape = net_parameter.input_shape[0].dim
 ratio = input_shape[2]*1.0/imagenet_mean.shape[1]
-imagenet_mean = scipy.ndimage.zoom(imagenet_mean, (1, ratio, ratio))
+imagenet_mean = caffe.io.resize_image(imagenet_mean.transpose((1, 2, 0)), net_parameter.input_dim[2:]).transpose((2, 0, 1))
 
 # INIT NETWORK
 caffe.set_mode_gpu()
