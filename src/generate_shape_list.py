@@ -31,6 +31,7 @@ for synset in g_shapenet_synset_set:
         
 print len(shape_list), 'shapes are collected!'
 
+shape_list.sort()
 shape_list_file = open(g_shape_list_file, 'w')
 for shape_property in shape_list:
     shape_list_file.write(shape_property[0]+' '+shape_property[1]+'\n');

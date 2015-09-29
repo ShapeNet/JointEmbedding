@@ -1,5 +1,5 @@
 SUN2012pascalformat.tar.gz
-bvlc_*.caffemodel
+bvlc_alexnet.caffemodel
 sun2012_data
 syn_images
 syn_images_cropped

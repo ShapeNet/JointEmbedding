@@ -16,18 +16,18 @@ from global_variables import *
 # ---- ----
 
 shape_md5_list = [line.strip().split(' ')[1] for line in open(g_shape_list_file, 'r')]
+print len(shape_md5_list), 'shapes!'
 
 # get all img files
 img_shape_id_pairs = [] # full path
 for synset_dir in g_shapenet_synset_set:
     synset_dir = os.path.join(g_syn_images_bkg_overlaid_folder, synset_dir)
-    if not os.path.isdir(synset_dir): 
-        continue
     for shape_id, shape_md5 in enumerate(shape_md5_list):
         shape_dir = os.path.join(synset_dir, shape_md5)
         imgs = os.listdir(shape_dir)
         for img in imgs:
             img_shape_id_pairs.append((os.path.join(shape_dir, img), shape_id))
+print len(img_shape_id_pairs), 'syn images!'
 
 # shuffle
 random.seed(9527) # seed random with a fixed number
