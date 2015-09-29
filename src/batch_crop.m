@@ -1,4 +1,8 @@
-function batch_crop(src_folder, dst_folder, jitter, src_image_list)
+function batch_crop(src_folder, dst_folder, jitter, src_image_list, cropRatios)
+
+if nargin < 5
+    cropRatios = zeros(1,4);
+end
 
 fprintf('Start croping at time %s...it takes for a while!!\n', datestr(now, 'HH:MM:SS'));
 report_num = 80;
@@ -15,7 +19,6 @@ parfor i = 1:image_num
         fprintf('Failed to read %s\n', src_image_file);
     end
     
-    cropRatios = [0.05,0.3,0.05,0.05]; % set cropping ratios for top,bottom,left,right
     [alpha, top, bottom, left, right] = crop_gray(alpha, 0, jitter, cropRatios);      
     I = I(top:bottom, left:right, :);
 
