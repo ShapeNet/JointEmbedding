@@ -28,7 +28,7 @@ end
 
 % ---- JITTER THE CROP -----
 if nargin < 4
-    cropRatios = ones(1,4)*0.05;
+    cropRatios = zeros(1,4);
 end
 
 width = right - left + 1;
