@@ -1,8 +1,0 @@
-lfd_images
-lfd_images_cropped
-lfd_hog_features_*.mat
-shape_distance_matrix_*.mat
-shape_distance_matrix_*.txt
-shape_embedding_space_*.mat
-shape_embedding_space_*.txt
-shape_embedding_lmdb_*
