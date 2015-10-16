@@ -11,7 +11,7 @@ from global_variables import *
 from utilities import query_yes_no
 
 # download and unzip evaluation data
-url = 'https://shapenet.cs.stanford.edu/shapenet_brain/media/app_joint_embedding/evaluation_cross_view_image_retrieval.zip'
+url = 'https://shapenet.cs.stanford.edu/projects/JointEmbedding/data/evaluation_cross_view_image_retrieval.zip'
 filename = os.path.join(g_data_folder, 'evaluation_cross_view_image_retrieval.zip')
 
 if os.path.exists(filename):
