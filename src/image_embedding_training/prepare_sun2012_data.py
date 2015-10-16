@@ -8,7 +8,7 @@ from subprocess import call
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(BASE_DIR))
 from global_variables import *
-from utilities import query_yes_no
+from utilities_common import query_yes_no
 
 if not os.path.exists(g_sun2012_data_folder):
     os.mkdir(g_sun2012_data_folder) 

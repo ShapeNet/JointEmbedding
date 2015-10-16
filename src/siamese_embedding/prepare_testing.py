@@ -28,14 +28,12 @@ shutil.copy(siamese_embedding_testing_in, g_siamese_embedding_testing_prototxt)
 for line in fileinput.input(g_siamese_embedding_testing_prototxt, inplace=True):
     line = line.replace('embedding_space_dim', str(g_shape_embedding_space_dimension))
     sys.stdout.write(line) 
-net = caffe.Net(g_siamese_embedding_testing_prototxt, caffe.TEST)
-
-print 'Copying trained layers from %s...'%(g_fine_tune_caffemodel)
-net.copy_from(g_fine_tune_caffemodel)
 
 siamese_embedding_caffemodel = os.path.join(g_siamese_embedding_training_folder, 'snapshots%s_iter_%d.caffemodel'%(g_shapenet_synset_set_handle, args.iter_num))
-print 'Copying trained layers from %s...'%(siamese_embedding_caffemodel)
-net.copy_from(siamese_embedding_caffemodel)
+siamese_embedding_caffemodel_stacked = os.path.join(g_siamese_embedding_testing_folder, 'snapshots%s_iter_%d.caffemodel'%(g_shapenet_synset_set_handle, args.iter_num))
 
-siamese_embedding_caffemodel = os.path.join(g_siamese_embedding_testing_folder, 'snapshots%s_iter_%d.caffemodel'%(g_shapenet_synset_set_handle, args.iter_num))
-net.save(siamese_embedding_caffemodel)
+stack_caffe_models(prototxt=g_siamese_embedding_testing_prototxt,
+                   base_model=g_fine_tune_caffemodel,
+                   top_model=siamese_embedding_caffemodel,
+                   stacked_model=siamese_embedding_caffemodel_stacked,
+                   caffe_path=g_caffe_install_path)
