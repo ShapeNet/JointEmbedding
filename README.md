@@ -20,7 +20,8 @@ If you find JointEmbedding useful in your research, please consider citing:
     
 ## Contents
 ### 1. Usage: How to test with trained models?
-To be added...
+The trained model for chair category (03001627) can be downloaded from <a href="https://shapenet.cs.stanford.edu/projects/JointEmbedding/data/03001627.zip" target="_blank">here</a>.
+
 ### 2. Usage: How to train your own models?
 #### 2.1. Requirements: datasets
 + ShapeNetCore is used for constructing the shape embedding space and generating synthetic images. Visit The <a href="http://shapenet.org/" target="_blank">shapenet.org</a>, and request to download the ShapeNetCore dataset. ShapeNetCore.v1 (also called ShapeNetCore2015Summer) is prefered (there were many broken meshes in ShapeNetCore.v0/ShapeNetCore2015Spring).
