@@ -30,7 +30,7 @@ if __name__ == '__main__':
         shape_file = os.path.join(g_shapenet_root_folder, shape_synset, shape_md5, 'model.obj')
 
         command = '%s ../blank.blend --background --python render_lfd_single_shape.py -- %s %s %s ' % (g_blender_executable_path, shape_file, shape_synset, shape_md5)
-        if len(shape_list) <= 32:
+        if len(shape_list) > 32:
             command = command + ' > /dev/null 2>&1'
         commands.append(command)
     print('done(%d commands)'%(len(commands)))
