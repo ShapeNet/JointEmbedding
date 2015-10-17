@@ -127,6 +127,10 @@ bpy.context.scene.render.alpha_mode = 'TRANSPARENT'
 #bpy.context.scene.render.use_shadows = False
 #bpy.context.scene.render.use_raytrace = False
 
+# disable material raytrace
+for material_idx in range(len(bpy.data.materials)):
+    bpy.data.materials[material_idx].use_transparency = False
+
 bpy.data.objects['Lamp'].data.energy = 0
 
 #m.subsurface_scattering.use = True

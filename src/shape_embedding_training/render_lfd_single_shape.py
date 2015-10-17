@@ -134,8 +134,14 @@ if render_task_finished:
 bpy.ops.import_scene.obj(filepath=shape_file) 
 
 bpy.context.scene.render.alpha_mode = 'TRANSPARENT'
+bpy.context.scene.render.use_textures = False
 #bpy.context.scene.render.use_shadows = False
 #bpy.context.scene.render.use_raytrace = False
+
+# disable material transparency and raytrace
+for material_idx in range(len(bpy.data.materials)):
+    bpy.data.materials[material_idx].use_transparency = False
+    bpy.data.materials[material_idx].use_raytrace = False
 
 bpy.data.objects['Lamp'].data.energy = 0
 
@@ -151,6 +157,7 @@ if 'Lamp' in list(bpy.data.objects.keys()):
     bpy.data.objects['Lamp'].select = True # remove default light
 bpy.ops.object.delete()
 
+bpy.ops.object.shade_smooth()
 # YOUR CODE START HERE
 
 # clear default lights
@@ -160,7 +167,7 @@ bpy.ops.object.delete(use_global=False)
 # set environment lighting
 #bpy.context.space_data.context = 'WORLD'
 bpy.context.scene.world.light_settings.use_environment_light = True
-bpy.context.scene.world.light_settings.environment_energy = np.random.uniform(0, 1)
+bpy.context.scene.world.light_settings.environment_energy = 0.35
 bpy.context.scene.world.light_settings.environment_color = 'PLAIN'
 
 # set point lights
