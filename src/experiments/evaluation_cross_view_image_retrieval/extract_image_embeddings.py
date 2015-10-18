@@ -15,6 +15,7 @@ matplotlib.use('Agg')
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(os.path.dirname(BASE_DIR)))
 from global_variables import *
+from utilities_caffe import *
 
 parser = argparse.ArgumentParser(description="Extract image embedding features for IMAGE input.")
 parser.add_argument('--dataset', '-d', help='The dataset for extracting image embedding features(02958343, 03001627_clutter, or 03001627_clean)', required=True)
@@ -37,19 +38,18 @@ if args.prototxt:
     image_embedding_prototxt = args.prototxt
 else:
     # change the batch size to speedup the computation a bit
-    evaluation_prototxt = os.path.join(evaluation_folder, os.path.split(prototxt)[-1])
+    evaluation_prototxt = os.path.join(evaluation_folder, os.path.split(image_embedding_prototxt)[-1])
     print 'Preparing %s...'%(evaluation_prototxt)
-    shutil.copy(prototxt, evaluation_prototxt)
+    shutil.copy(image_embedding_prototxt, evaluation_prototxt)
     for line in fileinput.input(evaluation_prototxt, inplace=True):
         sys.stdout.write(line.replace('dim: 1', 'dim: 256')) 
     image_embedding_prototxt = evaluation_prototxt
 
-filelist = [line.strip() for line in open(os.path.join(evaluation_folder, 'filelist_'+args.dataset+'.txt'))]
+filelist_filename = os.path.join(evaluation_folder, 'filelist_'+args.dataset+'.txt')
 data_folder = os.path.join(evaluation_folder, 'images_'+args.dataset)
 image_embedding_filename = os.path.join(evaluation_folder, 'image_embeddings_'+args.dataset+'.txt')
-print datetime.datetime.now().time(), 'Computing image embedding for %s (%d images)...'%(args.dataset, len(filelist)) 
-extract_cnn_features(img_filelist=filelist,
-                     img_root='/',
+extract_cnn_features(img_filelist=filelist_filename,
+                     img_root=data_folder,
                      prototxt=image_embedding_prototxt, 
                      caffemodel=image_embedding_caffemodel,
                      feat_name='image_embedding',
