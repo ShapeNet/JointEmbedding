@@ -40,7 +40,7 @@ def extract_cnn_features(img_filelist, img_root, prototxt, caffemodel, feat_name
         img_filenames = [img_root+'/'+x.rstrip() for x in open(img_filelist, 'r')]
     N = len(img_filenames)
     
-    if os.path.exists(output_path):
+    if output_path != None and os.path.exists(output_path):
         if os.path.isdir(output_path):
             shutil.rmtree(output_path)
         else:
@@ -69,13 +69,22 @@ def extract_cnn_features(img_filelist, img_root, prototxt, caffemodel, feat_name
     if output_type == None:
         feat_list = []
         for batch_idx in range(batch_num):
-            feat_list.append(compute_feat_array(batch_idx))
+            start_idx = batch_size * batch_idx
+            end_idx = min(batch_size * (batch_idx+1), N)
+            batch_count = end_idx - start_idx
+            feat_array = compute_feat_array(batch_idx)
+            for n in range(batch_count):
+                feat_list.append(feat_array[n, ...])
             return feat_list
     elif output_type == 'txt':
         with open(output_path, 'w') as output_file:
             for batch_idx in range(batch_num):
+                start_idx = batch_size * batch_idx
+                end_idx = min(batch_size * (batch_idx+1), N)
+                batch_count = end_idx - start_idx
                 feat_array = compute_feat_array(batch_idx)
-                output_file.write(' '.join([str(x) for x in feat_array.flat]))
+                for n in range(batch_count):
+                    output_file.write(' '.join([str(x) for x in feat_array[n, ...].flat])+'\n')
     elif output_type == 'lmdb':
         import lmdb
         def array4d_idx_to_datum_string(array4d_idx):

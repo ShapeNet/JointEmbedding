@@ -16,6 +16,7 @@ matplotlib.use('Agg')
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(BASE_DIR))
 from global_variables import *
+from utilities_caffe import *
 
 parser = argparse.ArgumentParser(description="Extract image embedding features for IMAGE input.")
 parser.add_argument('--image', help='Path to input image (cropped)', required=True)
@@ -41,8 +42,8 @@ image_embedding_array = extract_cnn_features(img_filelist=args.image,
                      caffemodel=image_embedding_caffemodel,
                      feat_name='image_embedding',
                      caffe_path=g_caffe_install_path,
-                     mean_file=g_mean_file)[0]
-image_embedding = image_embedding_array[0, :, 0, 0]
+                     mean_file=g_mean_file)
+image_embedding = image_embedding_array[0]
 
 print 'Loading shape embedding space from %s...'%(g_shape_embedding_space_file_txt)
 shape_embedding_space = [np.array([float(value) for value in line.strip().split(' ')]) for line in open(g_shape_embedding_space_file_txt, 'r')]
