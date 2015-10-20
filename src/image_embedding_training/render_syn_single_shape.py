@@ -63,7 +63,7 @@ for param in view_params:
         lx, ly, lz = obj_centened_camera_pos(light_dist, light_azimuth_deg, light_elevation_deg)
         bpy.ops.object.lamp_add(type='POINT', location=(lx, ly, lz))
     for lamp_idx in range(len(bpy.data.lamps)):
-        bpy.data.lamps[lamp_idx].data.energy = np.random.normal(2, 2)
+        bpy.data.lamps[lamp_idx].energy = np.random.normal(2, 2)
 
     cx, cy, cz = obj_centened_camera_pos(rho, azimuth_deg, elevation_deg)
     q1 = camPosToQuaternion(cx, cy, cz)
