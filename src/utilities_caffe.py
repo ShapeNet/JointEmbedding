@@ -14,6 +14,15 @@ from google.protobuf import text_format
 import matplotlib 
 matplotlib.use('Agg')
 
+def _array4d_idx_to_datum_string(array4d_idx):
+    import caffe
+    array4d = array4d_idx[0]
+    idx = array4d_idx[1]
+    global_idx = array4d_idx[2]
+    array = array4d[idx, :, :, :]
+    datum = caffe.io.array_to_datum(array.astype(float), global_idx)
+    return datum.SerializeToString()      
+
 def extract_cnn_features(img_filelist, img_root, prototxt, caffemodel, feat_name, output_path=None, output_type=None, caffe_path=None, mean_file=None, gpu_index=0, pool_size=8):   
     if caffe_path:
         sys.path.append(os.path.join(caffe_path, 'python'))
@@ -87,14 +96,6 @@ def extract_cnn_features(img_filelist, img_root, prototxt, caffemodel, feat_name
                     output_file.write(' '.join([str(x) for x in feat_array[n, ...].flat])+'\n')
     elif output_type == 'lmdb':
         import lmdb
-        def array4d_idx_to_datum_string(array4d_idx):
-            array4d = array4d_idx[0]
-            idx = array4d_idx[1]
-            global_idx = array4d_idx[2]
-            array = array4d[idx, :, :, :]
-            datum = caffe.io.array_to_datum(array.astype(float), global_idx)
-            return datum.SerializeToString()      
-          
         env = lmdb.open(output_path, map_size=int(1e12))
         pool = Pool(pool_size)
         for batch_idx in range(batch_num):
@@ -102,7 +103,7 @@ def extract_cnn_features(img_filelist, img_root, prototxt, caffemodel, feat_name
             start_idx = batch_size * batch_idx
             end_idx = min(batch_size * (batch_idx+1), N)
             array4d_idx = [(feat_array, idx, idx+start_idx) for idx in range(end_idx-start_idx)]
-            datum_strings = pool.map(array4d_idx_to_datum_string, array4d_idx)
+            datum_strings = pool.map(_array4d_idx_to_datum_string, array4d_idx)
             with env.begin(write=True) as txn:
                 for idx in range(end_idx-start_idx):
                     txn.put('{:0>10d}'.format(start_idx+idx), datum_strings[idx])        
