@@ -14,6 +14,7 @@ matplotlib.use('Agg')
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(BASE_DIR))
 from global_variables import *
+from utilities_caffe import *
 
 parser = argparse.ArgumentParser(description="Extract image embedding features for IMAGE input.")
 parser.add_argument('--image', help='Path to input image (cropped)', required=False)

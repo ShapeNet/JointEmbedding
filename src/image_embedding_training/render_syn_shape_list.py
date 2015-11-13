@@ -20,7 +20,7 @@ report_step = 100
 
 if __name__ == '__main__':
     if not os.path.exists(g_syn_images_folder):
-        os.mkdir(g_syn_images_folder) 
+        os.makedirs(g_syn_images_folder) 
 
     shape_list = [line.strip().split(' ') for line in open(g_shape_list_file, 'r')]
     print(len(shape_list), 'shapes are going to be rendered!')
