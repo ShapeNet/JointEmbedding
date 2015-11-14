@@ -17,7 +17,7 @@ from global_variables import *
 from utilities_caffe import *
 
 parser = argparse.ArgumentParser(description="Extract image embedding features for IMAGE input.")
-parser.add_argument('--image', help='Path to input image (cropped)', required=False)
+parser.add_argument('--image', help='Path to input image (cropped)', required=True)
 parser.add_argument('--iter_num', '-n', help='Use caffemodel trained after iter_num iterations', type=int, default=20000)
 parser.add_argument('--caffemodel', '-c', help='Path to caffemodel (will ignore -n option if provided)', required=False)
 parser.add_argument('--prototxt', '-p', help='Path to prototxt (if not at the default place)', required=False)
@@ -40,4 +40,4 @@ image_embedding_array = extract_cnn_features(img_filelist=args.image,
                      feat_name='image_embedding',
                      caffe_path=g_caffe_install_path,
                      mean_file=g_mean_file)[0]
-print image_embedding_array[0, :, 0, 0].tolist()
+print image_embedding_array.tolist()
