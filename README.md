@@ -20,7 +20,10 @@ If you find JointEmbedding useful in your research, please consider citing:
     
 ## Contents
 ### 1. Usage: How to test with trained models?
-The trained model for chair category (03001627) can be downloaded from <a href="https://shapenet.cs.stanford.edu/projects/JointEmbedding/data/03001627.zip" target="_blank">here</a>.
+The trained model for chair category (03001627) can be downloaded from <a href="https://shapenet.cs.stanford.edu/projects/JointEmbedding/data/03001627.zip" target="_blank">here</a>. You can try them with script `extract_image_embedding.py` and `image_based_shape_retrieval.py` in `src/image_embedding_testing folder`, with the following commands: 
+
+    extract_image_embedding.py --image YOUR_TESTING_IMAGE --caffemodel image_embedding_03001627.caffemodel  --prototxt image_embedding_03001627.prototxt
+    image_based_shape_retrieval.py --image YOUR_TESTING_IMAGE --caffemodel image_embedding_03001627.caffemodel  --prototxt image_embedding_03001627.prototxt
 
 ### 2. Usage: How to train your own models?
 #### 2.1. Requirements: datasets
