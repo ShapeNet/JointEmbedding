@@ -34,7 +34,7 @@ def extract_cnn_features(img_filelist, img_root, prototxt, caffemodel, feat_name
         imagenet_mean = np.load(mean_file)
         net_parameter = caffe_pb2.NetParameter()
         text_format.Merge(open(prototxt, 'r').read(), net_parameter)
-        if net_parameter.HasField('input_dim'):
+        if len(net_parameter.input_dim) != 0:
             input_shape = net_parameter.input_dim
         else:
             input_shape = net_parameter.input_shape
