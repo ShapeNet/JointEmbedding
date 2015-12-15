@@ -12,6 +12,7 @@ global_variables_m_file = open('./global_variables.m', 'w')
 global_variables_m_file.write('g_shapenet_synset_set = {%s};\n' %(''.join(['\''+synset+'\'' for synset in g_shapenet_synset_set])))
 global_variables_m_file.write('\n');
 global_variables_m_file.write('g_piotr_toolbox_path = \'%s\';\n' %(g_piotr_toolbox_path))
+global_variables_m_file.write('g_minfunc_2012_path = \'%s\';\n' %(g_minfunc_2012_path))
 global_variables_m_file.write('g_shape_list_file = \'%s\';\n' %(g_shape_list_file))
 global_variables_m_file.write('\n');
 global_variables_m_file.write('g_lfd_cropping_thread_num = %d;\n' %(g_lfd_cropping_thread_num))

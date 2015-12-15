@@ -26,3 +26,12 @@ os.remove(filename)
 if os.path.exists(g_piotr_toolbox_path):
     shutil.rmtree(g_piotr_toolbox_path)
 call(['git', 'clone', g_piotr_toolbox_git, g_piotr_toolbox_path])
+
+# download and unzip minFunc_2012
+filename = os.path.join(g_3rd_party_folder, 'minFunc_2012.zip')
+call(['wget', '-O', filename, g_minfunc_2012_url])
+minfunc_2012_folder = os.path.dirname(g_minfunc_2012_path)
+if not os.path.exists(minfunc_2012_folder):
+    os.mkdir(minfunc_2012_folder) 
+call(['unzip', filename, '-d', minfunc_2012_folder])
+os.remove(filename)
