@@ -20,6 +20,8 @@ g_blender_executable_url = 'http://download.blender.org/release/Blender2.75/blen
 g_blender_executable_path = os.path.abspath(os.path.join(g_3rd_party_folder, 'blender/blender'))
 g_piotr_toolbox_git = 'https://github.com/pdollar/toolbox'
 g_piotr_toolbox_path = os.path.abspath(os.path.join(g_3rd_party_folder, 'piotr_toolbox'))
+g_minfunc_2012_url = 'https://www.cs.ubc.ca/~schmidtm/Software/minFunc_2012.zip'
+g_minfunc_2012_path = os.path.abspath(os.path.join(g_3rd_party_folder, 'minFunc_2012'))
 # Follow Caffe homepage for the installation instructions of Caffe.
 g_caffe_install_path = os.path.abspath('/opt/caffe') # [take care!!!]
 g_matlab_executable_path = os.path.abspath('/usr/local/bin/matlab') # [take care!!!]
