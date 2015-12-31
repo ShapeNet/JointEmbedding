@@ -23,7 +23,7 @@ if isfield(params, 'weightForAnchors')
     weightForAnchors = params.weightForAnchors;
 else
     if strcmp(params.type, 'sammon')
-        weightForAnchors = 1 ./ posToAnchorDist;
+        weightForAnchors = 1 ./ (posToAnchorDist + 1e-6);
     else
         weightForAnchors = ones(n, m);
     end
