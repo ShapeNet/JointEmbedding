@@ -87,7 +87,7 @@ def extract_cnn_features(img_filelist, img_root, prototxt, caffemodel, feat_name
             batch_count = end_idx - start_idx
             feat_array = compute_feat_array(batch_idx)
             for n in range(batch_count):
-                feat_list.append(feat_array[n, ...])
+                feat_list.append(feat_array[n, ...].copy())
         return feat_list
     elif output_type == 'txt':
         with open(output_path, 'w') as output_file:
